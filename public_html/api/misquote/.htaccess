@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^/?(\d+)?$ /~dmcdonald21/misquote-of-the-day/public_html/api/misquote/?id=$1
+</IfModule>
