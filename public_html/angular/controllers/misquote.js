@@ -1,6 +1,20 @@
-app.controller("MisquoteController", ["$scope", "$uibModal", "MisquoteService", function($scope, $uibModal, MisquoteService) {
+app.controller("MisquoteController", ["$scope", "$uibModal", "$window", "MisquoteService", function($scope, $uibModal, $window, MisquoteService) {
+	$scope.editedMisquote = {};
+	$scope.newMisquote = {misquoteId: null, attribution: "", misquote: "", submitter: ""};
+	$scope.isEditing = false;
 	$scope.alerts = [];
 	$scope.misquotes = [];
+
+	$scope.setEditedMisquote = function(misquote) {
+		$window.scrollTo(0, 0);
+		$scope.editedMisquote = angular.copy(misquote);
+		$scope.isEditing = true;
+	};
+
+	$scope.cancelEditing = function() {
+		$scope.editedTweet = null;
+		$scope.isEditing = false;
+	};
 
 	$scope.getMisquotes = function() {
 		MisquoteService.all()
@@ -11,6 +25,20 @@ app.controller("MisquoteController", ["$scope", "$uibModal", "MisquoteService", 
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
 			});
+	};
+
+	$scope.createMisquote = function(misquote, validated) {
+		if(validated === true) {
+			MisquoteService.create(misquote)
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+						$scope.getMisquotes();
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+		}
 	};
 
 	$scope.deleteMisquote = function(misquoteId) {
