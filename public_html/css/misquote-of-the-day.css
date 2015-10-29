@@ -1,0 +1,8 @@
+.inline {
+	display: inline;
+}
+
+.table-word-wrap {
+	table-layout: fixed;
+	word-wrap: break-word;
+}
