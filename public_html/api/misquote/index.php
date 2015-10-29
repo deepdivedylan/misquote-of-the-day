@@ -44,7 +44,7 @@ try {
 
 		$misquote = new Misquote($id, $requestObject->attribution, $requestObject->misquote, $requestObject->submitter);
 		$misquote->update($pdo);
-		$reply->data = "Misquote updated OK";
+		$reply->message = "Misquote updated OK";
 		// post to a new Misquote
 	} else if($method === "POST") {
 		// convert POSTed JSON to an object
@@ -54,20 +54,25 @@ try {
 
 		$misquote = new Misquote(null, $requestObject->attribution, $requestObject->misquote, $requestObject->submitter);
 		$misquote->insert($pdo);
-		$reply->data = "Misquote created OK";
+		$reply->message = "Misquote created OK";
 		// delete an existing Misquote
 	} else if($method === "DELETE") {
 		verifyXsrf();
 		$misquote = Misquote::getMisquoteByMisquoteId($pdo, $id);
+		if($misquote === null) {
+			throw(new RuntimeException("Misquote does not exist", 404));
+		}
 		$misquote->delete($pdo);
-		$reply->data = "Misquote deleted OK";
+		$reply->message = "Misquote deleted OK";
 	}
 // create an exception to pass back to the RESTful caller
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
-	unset($reply->data);
 }
 
 header("Content-type: application/json");
+if($reply->data === null) {
+	unset($reply->data);
+}
 echo json_encode($reply);
