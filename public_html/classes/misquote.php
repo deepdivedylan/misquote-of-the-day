@@ -378,6 +378,6 @@ class Misquote implements JsonSerializable {
 	 * @return array array containing all fields in this Misquote
 	 **/
 	function jsonSerialize() {
-		return(get_class_vars($this));
+		return(get_object_vars($this));
 	}
 }
