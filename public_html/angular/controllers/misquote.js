@@ -41,6 +41,20 @@ app.controller("MisquoteController", ["$scope", "$uibModal", "$window", "Misquot
 		}
 	};
 
+	$scope.updateMisquote = function(misquote, validated) {
+		if(validated === true && $scope.isEditing === true) {
+			MisquoteService.update(misquote.misquoteId, misquote)
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+						$scope.getMisquotes();
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+		}
+	};
+
 	$scope.deleteMisquote = function(misquoteId) {
 		var message = "Do you really want to delete this misquote?";
 
