@@ -227,8 +227,8 @@ class Misquote implements JsonSerializable {
 	 **/
 	public function delete(PDO $pdo) {
 		// enforce the misquoteId is not null (i.e., don't delete a misquote that does not exist)
-		if($this->misquoteId !== null) {
-			throw(new PDOException("not a new misquote"));
+		if($this->misquoteId === null) {
+			throw(new PDOException("unable to delete a misquote that does not exist"));
 		}
 
 		// create query template
@@ -248,8 +248,8 @@ class Misquote implements JsonSerializable {
 	 **/
 	public function update(PDO $pdo) {
 		// enforce the misquoteId is not null (i.e., don't update a misquote that does not exist)
-		if($this->misquoteId !== null) {
-			throw(new PDOException("not a new misquote"));
+		if($this->misquoteId === null) {
+			throw(new PDOException("unable to update a misquote that does not exist"));
 		}
 
 		// create query template
