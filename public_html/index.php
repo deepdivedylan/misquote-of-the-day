@@ -15,7 +15,9 @@ $ANGULAR_VERSION = "1.4.7";
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular.min.js"></script>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-messages.min.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-pusher/0.0.14/angular-pusher.min.js"></script>
 		<script type="text/javascript" src="angular/misquote-of-the-day.js"></script>
+		<script type="text/javascript" src="angular/pusher-config.js"></script>
 		<script type="text/javascript" src="angular/services/misquote.js"></script>
 		<title>Misquote of the Day</title>
 	</head>

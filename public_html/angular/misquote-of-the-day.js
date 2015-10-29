@@ -1,1 +1,1 @@
-var app = angular.module("MisquoteOfTheDay", ["ngMessages", "ui.bootstrap"]);
+var app = angular.module("MisquoteOfTheDay", ["ngMessages", "doowb.angular-pusher", "ui.bootstrap"]);
