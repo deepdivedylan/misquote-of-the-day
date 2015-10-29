@@ -1,0 +1,7 @@
+CREATE TABLE misquote (
+	misquoteId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	attribution VARCHAR(64) NOT NULL,
+	misquote VARCHAR(255) NOT NULL,
+	submitter VARCHAR(64) NOT NULL,
+	PRIMARY KEY(misquoteId)
+);
