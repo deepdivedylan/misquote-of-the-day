@@ -16,12 +16,12 @@ app.service("MisquoteService", function($http, MISQUOTE_ENDPOINT) {
 		return($http.get(getUrlForId(misquoteId)));
 	};
 
-	this.create = function(tweet) {
-		return($http.post(getUrl(), tweet));
+	this.create = function(misquote) {
+		return($http.post(getUrl(), misquote));
 	};
 
-	this.update = function(misquoteId, tweet) {
-		return($http.put(getUrlForId(misquoteId), tweet));
+	this.update = function(misquoteId, misquote) {
+		return($http.put(getUrlForId(misquoteId), misquote));
 	};
 
 	this.destroy = function(misquoteId) {
