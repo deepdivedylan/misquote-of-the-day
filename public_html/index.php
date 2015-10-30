@@ -91,7 +91,7 @@ $ANGULAR_VERSION = "1.4.7";
 							</div>
 						</div>
 						<button type="submit" class="btn btn-info btn-lg" ng-disabled="addMisquoteForm.$invalid"><i class="fa fa-share"></i> Misquote</button>
-						<button class="btn btn-warning btn-lg"><i class="fa fa-ban"></i> Cancel</button>
+						<button type="reset" class="btn btn-warning btn-lg"><i class="fa fa-ban"></i> Cancel</button>
 					</form>
 					<form name="editMisquoteForm" id="editMisquoteForm" class="form-horizontal well" ng-submit="updateMisquote(editedMisquote, editMisquoteForm.$valid);" ng-show="isEditing" novalidate>
 						<h2>Edit Misquote</h2>
