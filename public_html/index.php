@@ -139,7 +139,7 @@ $ANGULAR_VERSION = "1.4.7";
 							</div>
 						</div>
 						<button type="submit" class="btn btn-info btn-lg" ng-disabled="editMisquoteForm.$invalid"><i class="fa fa-share"></i> Misquote</button>
-						<button class="btn btn-warning btn-lg" ng-click="cancelEditing();"><i class="fa fa-ban"></i> Cancel</button>
+						<button type="reset" class="btn btn-warning btn-lg" ng-click="cancelEditing();"><i class="fa fa-ban"></i> Cancel</button>
 					</form>
 				</div>
 				<div class="col-md-8">
