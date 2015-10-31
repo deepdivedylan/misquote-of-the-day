@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(dirname(dirname(__DIR__))) . "/vendor/autoload.php");
 require_once(dirname(dirname(__DIR__)) . "/classes/misquote.php");
 require_once(dirname(dirname(__DIR__)) . "/lib/xsrf.php");
 require_once("/etc/apache2/data-design/encrypted-config.php");
@@ -14,6 +15,11 @@ $reply->status = 200;
 $reply->data = null;
 
 try {
+	// create the Pusher connection
+	$config = readConfig("/etc/apache2/data-design/misquote.ini");
+	$pusherConfig = json_decode($config["pusher"]);
+	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["encrypted" => true]);
+
 	// determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
@@ -44,6 +50,7 @@ try {
 
 		$misquote = new Misquote($id, $requestObject->attribution, $requestObject->misquote, $requestObject->submitter);
 		$misquote->update($pdo);
+		$pusher->trigger("misquote", "update", json_encode($misquote));
 		$reply->message = "Misquote updated OK";
 		// post to a new Misquote
 	} else if($method === "POST") {
@@ -54,6 +61,7 @@ try {
 
 		$misquote = new Misquote(null, $requestObject->attribution, $requestObject->misquote, $requestObject->submitter);
 		$misquote->insert($pdo);
+		$pusher->trigger("misquote", "new", json_encode($misquote));
 		$reply->message = "Misquote created OK";
 		// delete an existing Misquote
 	} else if($method === "DELETE") {
@@ -63,6 +71,9 @@ try {
 			throw(new RuntimeException("Misquote does not exist", 404));
 		}
 		$misquote->delete($pdo);
+		$deletedObject = new stdClass();
+		$deletedObject->misquoteId = $id;
+		$pusher->trigger("misquote", "delete", json_encode($deletedObject));
 		$reply->message = "Misquote deleted OK";
 	}
 // create an exception to pass back to the RESTful caller
