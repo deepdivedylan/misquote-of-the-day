@@ -50,7 +50,7 @@ try {
 
 		$misquote = new Misquote($id, $requestObject->attribution, $requestObject->misquote, $requestObject->submitter);
 		$misquote->update($pdo);
-		$pusher->trigger("misquote", "update", json_encode($misquote));
+		$pusher->trigger("misquote", "update", $misquote);
 		$reply->message = "Misquote updated OK";
 		// post to a new Misquote
 	} else if($method === "POST") {
@@ -61,7 +61,7 @@ try {
 
 		$misquote = new Misquote(null, $requestObject->attribution, $requestObject->misquote, $requestObject->submitter);
 		$misquote->insert($pdo);
-		$pusher->trigger("misquote", "new", json_encode($misquote));
+		$pusher->trigger("misquote", "new", $misquote);
 		$reply->message = "Misquote created OK";
 		// delete an existing Misquote
 	} else if($method === "DELETE") {
@@ -73,7 +73,7 @@ try {
 		$misquote->delete($pdo);
 		$deletedObject = new stdClass();
 		$deletedObject->misquoteId = $id;
-		$pusher->trigger("misquote", "delete", json_encode($deletedObject));
+		$pusher->trigger("misquote", "delete", $deletedObject);
 		$reply->message = "Misquote deleted OK";
 	}
 // create an exception to pass back to the RESTful caller
