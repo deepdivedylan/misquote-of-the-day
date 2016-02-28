@@ -3,7 +3,6 @@ app.controller("MisquoteController", ["$scope", "$uibModal", "$window", "Misquot
 	$scope.newMisquote = {misquoteId: null, attribution: "", misquote: "", submitter: ""};
 	$scope.isEditing = false;
 	$scope.alerts = [];
-	$scope.misquotes = [];
 
 	/**
 	 * sets the which misquote is being edited and activates the editing form
@@ -21,20 +20,6 @@ app.controller("MisquoteController", ["$scope", "$uibModal", "$window", "Misquot
 	$scope.cancelEditing = function() {
 		$scope.editedMisquote = {};
 		$scope.isEditing = false;
-	};
-
-	/**
-	 * fulfills the promise from retrieving the misquotes from misquote API
-	 **/
-	$scope.getMisquotes = function() {
-		MisquoteService.all()
-			.then(function(result) {
-				if(result.data.status === 200) {
-					$scope.misquotes = result.data.data;
-				} else {
-					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-				}
-			});
 	};
 
 	/**
@@ -133,11 +118,6 @@ app.controller("MisquoteController", ["$scope", "$uibModal", "$window", "Misquot
 	$scope.$on("$destroy", function () {
 		Pusher.unsubscribe("misquote");
 	});
-
-	// load the array on first view
-	if($scope.misquotes.length === 0) {
-		$scope.misquotes = $scope.getMisquotes();
-	}
 }]);
 
 // embedded modal instance controller to create deletion prompt
