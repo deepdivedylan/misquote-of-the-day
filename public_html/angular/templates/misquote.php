@@ -10,3 +10,5 @@
 <div ng-if="deletedMisquote === true">
 	<h1>404 Misquote Not Found</h1>
 </div>
+<h2>Return</h2>
+<p><a ng-href=".">Go back from whence you came.</a></p>

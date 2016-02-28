@@ -1,4 +1,4 @@
-app.controller("HomeController", ["$scope", "MisquoteService", function($scope, MisquoteService) {
+app.controller("HomeController", ["$location", "$scope", "MisquoteService", function($location, $scope, MisquoteService) {
 	$scope.misquotes = [];
 
 	/**
@@ -13,6 +13,15 @@ app.controller("HomeController", ["$scope", "MisquoteService", function($scope, 
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
 			});
+	};
+
+	/**
+	 * reroute the page to the specified misquote
+	 *
+	 * @param misquoteId id of the misquote to load
+	 **/
+	$scope.loadMisquote = function(misquoteId) {
+		$location.path("misquote/" + misquoteId);
 	};
 
 	// load the array on first view
