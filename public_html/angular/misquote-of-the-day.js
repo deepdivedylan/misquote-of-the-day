@@ -6,8 +6,11 @@ app.config(function($routeProvider) {
 			controller: "HomeController",
 			templateUrl: "angular/templates/home.php"
 		})
-		.when("/misquote", {
+		.when("/misquote/:id", {
 			controller: "MisquoteController",
 			templateUrl: "angular/templates/misquote.php"
+		})
+		.otherwise({
+			redirectTo: "/"
 		});
 });
