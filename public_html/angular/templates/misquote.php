@@ -12,3 +12,4 @@
 </div>
 <h2>Return</h2>
 <p><a ng-href=".">Go back from whence you came.</a></p>
+<misquote-footer></misquote-footer>

@@ -13,3 +13,4 @@
 		</td>
 	</tr>
 </table>
+<misquote-footer></misquote-footer>
