@@ -1,9 +1,7 @@
-app.controller("MisquoteController", ["$routeParams", "$scope", "$uibModal", "$window", "MisquoteService", "Pusher", function($routeParams, $scope, $uibModal, $window, MisquoteService, Pusher) {
+app.controller("MisquoteController", ["$routeParams", "$scope", "$uibModal", "$window", "MisquoteService", function($routeParams, $scope, $uibModal, $window, MisquoteService) {
 	$scope.deletedMisquote = false;
 	$scope.misquote = null;
-	$scope.editedMisquote = {};
 	$scope.newMisquote = {misquoteId: null, attribution: "", misquote: "", submitter: ""};
-	$scope.isEditing = false;
 	$scope.alerts = [];
 
 	$scope.getMisquote = function() {
@@ -21,24 +19,6 @@ app.controller("MisquoteController", ["$routeParams", "$scope", "$uibModal", "$w
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
 			});
-	};
-
-	/**
-	 * sets the which misquote is being edited and activates the editing form
-	 *
-	 * @param misquote the misquote to load into the editing form
-	 **/
-	$scope.setEditedMisquote = function(misquote) {
-		$scope.editedMisquote = angular.copy(misquote);
-		$scope.isEditing = true;
-	};
-
-	/**
-	 * cancels editing and clears out the misquote being edited
-	 **/
-	$scope.cancelEditing = function() {
-		$scope.editedMisquote = {};
-		$scope.isEditing = false;
 	};
 
 	/**
@@ -67,7 +47,7 @@ app.controller("MisquoteController", ["$routeParams", "$scope", "$uibModal", "$w
 	 * @param validated true if Angular validated the form, false if not
 	 **/
 	$scope.updateMisquote = function(misquote, validated) {
-		if(validated === true && $scope.isEditing === true) {
+		if(validated === true) {
 			MisquoteService.update(misquote.misquoteId, misquote)
 				.then(function(result) {
 					if(result.data.status === 200) {
@@ -107,36 +87,6 @@ app.controller("MisquoteController", ["$routeParams", "$scope", "$uibModal", "$w
 				})
 		});
 	};
-
-	// subscribe to the delete channel; this will delete from the misquotes array on demand
-	Pusher.subscribe("misquote", "delete", function(misquote) {
-		for(var i = 0; i < $scope.misquotes.length; i++) {
-			if($scope.misquotes[i].misquoteId === misquote.misquoteId) {
-				$scope.misquotes.splice(i, 1);
-				break;
-			}
-		}
-	});
-
-	// subscribe to the new channel; this will add to the misquotes array on demand
-	Pusher.subscribe("misquote", "new", function(misquote) {
-		$scope.misquotes.push(misquote);
-	});
-
-	// subscript to the update channel; this will update the misquotes array on demand
-	Pusher.subscribe("misquote", "update", function(misquote) {
-		for(var i = 0; i < $scope.misquotes.length; i++) {
-			if($scope.misquotes[i].misquoteId === misquote.misquoteId) {
-				$scope.misquotes[i] = misquote;
-				break;
-			}
-		}
-	});
-
-	// when the window is closed/reloaded, gracefully close the channel
-	$scope.$on("$destroy", function () {
-		Pusher.unsubscribe("misquote");
-	});
 
 	if($scope.misquote === null) {
 		$scope.getMisquote();

@@ -1,4 +1,4 @@
-app.controller("HomeController", ["$location", "$scope", "MisquoteService", function($location, $scope, MisquoteService) {
+app.controller("HomeController", ["$location", "$scope", "MisquoteService", "Pusher", function($location, $scope, MisquoteService, Pusher) {
 	$scope.misquotes = [];
 
 	/**
@@ -23,6 +23,36 @@ app.controller("HomeController", ["$location", "$scope", "MisquoteService", func
 	$scope.loadMisquote = function(misquoteId) {
 		$location.path("misquote/" + misquoteId);
 	};
+
+	// subscribe to the delete channel; this will delete from the misquotes array on demand
+	Pusher.subscribe("misquote", "delete", function(misquote) {
+		for(var i = 0; i < $scope.misquotes.length; i++) {
+			if($scope.misquotes[i].misquoteId === misquote.misquoteId) {
+				$scope.misquotes.splice(i, 1);
+				break;
+			}
+		}
+	});
+
+	// subscribe to the new channel; this will add to the misquotes array on demand
+	Pusher.subscribe("misquote", "new", function(misquote) {
+		$scope.misquotes.push(misquote);
+	});
+
+	// subscript to the update channel; this will update the misquotes array on demand
+	Pusher.subscribe("misquote", "update", function(misquote) {
+		for(var i = 0; i < $scope.misquotes.length; i++) {
+			if($scope.misquotes[i].misquoteId === misquote.misquoteId) {
+				$scope.misquotes[i] = misquote;
+				break;
+			}
+		}
+	});
+
+	// when the window is closed/reloaded, gracefully close the channel
+	$scope.$on("$destroy", function () {
+		Pusher.unsubscribe("misquote");
+	});
 
 	// load the array on first view
 	if($scope.misquotes.length === 0) {
