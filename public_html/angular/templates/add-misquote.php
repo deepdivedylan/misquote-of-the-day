@@ -1,5 +1,6 @@
 <div class="row" ng-class="{ 'spacer': collapseAddForm }">
 	<button type="button" class="btn btn-lg btn-info" ng-click="collapseAddForm = !collapseAddForm"><i class="fa fa-plus"></i> Add Misquote</button>
+	<search-misquote></search-misquote>
 </div>
 <div class="row">
 	<form name="addMisquoteForm" id="addMisquoteForm" class="form-horizontal well" ng-submit="createMisquote(newMisquote, addMisquoteForm.$valid);" uib-collapse="collapseAddForm" novalidate>

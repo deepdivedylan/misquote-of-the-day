@@ -22,6 +22,7 @@ $ANGULAR_VERSION = "1.5.0";
 		<script type="text/javascript" src="angular/pusher-config.js"></script>
 		<script type="text/javascript" src="angular/directives/add-misquote.js"></script>
 		<script type="text/javascript" src="angular/directives/edit-misquote.js"></script>
+		<script type="text/javascript" src="angular/directives/search-misquote.js"></script>
 		<script type="text/javascript" src="angular/directives/footer.js"></script>
 		<script type="text/javascript" src="angular/services/misquote.js"></script>
 		<script type="text/javascript" src="angular/controllers/home.js"></script>
