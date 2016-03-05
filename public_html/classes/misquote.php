@@ -19,7 +19,7 @@ class Misquote implements JsonSerializable {
 	 **/
 	private $attribution;
 	/**
-	 * actual text of the <isquote
+	 * actual text of the Misquote
 	 * @var string $misquote
 	 **/
 	private $misquote;
@@ -115,7 +115,7 @@ class Misquote implements JsonSerializable {
 	public function setAttribution($newAttribution) {
 		// verify the attribution is secure
 		$newAttribution = trim($newAttribution);
-		$newAttribution = filter_var($newAttribution, FILTER_SANITIZE_STRING);
+		$newAttribution = filter_var($newAttribution, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newAttribution) === true) {
 			throw(new InvalidArgumentException("attribution is empty or insecure"));
 		}
@@ -148,7 +148,7 @@ class Misquote implements JsonSerializable {
 	public function setMisquote($newMisquote) {
 		// verify the misquote is secure
 		$newMisquote = trim($newMisquote);
-		$newMisquote = filter_var($newMisquote, FILTER_SANITIZE_STRING);
+		$newMisquote = filter_var($newMisquote, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newMisquote) === true) {
 			throw(new InvalidArgumentException("misquote is empty or insecure"));
 		}
@@ -181,7 +181,7 @@ class Misquote implements JsonSerializable {
 	public function setSubmitter($newSubmitter) {
 		// verify the submitter is secure
 		$newSubmitter = trim($newSubmitter);
-		$newSubmitter = filter_var($newSubmitter, FILTER_SANITIZE_STRING);
+		$newSubmitter = filter_var($newSubmitter, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newSubmitter) === true) {
 			throw(new InvalidArgumentException("submitter is empty or insecure"));
 		}
@@ -313,7 +313,7 @@ class Misquote implements JsonSerializable {
 	public static function getMisquoteBySubmitter(PDO $pdo, $submitter) {
 		// sanitize the submitter before searching
 		$submitter = trim($submitter);
-		$submitter = filter_var($submitter, FILTER_SANITIZE_STRING);
+		$submitter = filter_var($submitter, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($submitter) === true) {
 			throw(new PDOException("submitter is invalid"));
 		}
