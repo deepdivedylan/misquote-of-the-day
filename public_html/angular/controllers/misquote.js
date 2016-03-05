@@ -1,7 +1,6 @@
 app.controller("MisquoteController", ["$routeParams", "$scope", "$uibModal", "$window", "MisquoteService", function($routeParams, $scope, $uibModal, $window, MisquoteService) {
 	$scope.deletedMisquote = false;
 	$scope.misquote = null;
-	$scope.newMisquote = {misquoteId: null, attribution: "", misquote: "", submitter: ""};
 	$scope.alerts = [];
 
 	$scope.getMisquote = function() {
@@ -19,25 +18,6 @@ app.controller("MisquoteController", ["$routeParams", "$scope", "$uibModal", "$w
 					$scope.alerts[0] = {type: "danger", msg: result.data.message};
 				}
 			});
-	};
-
-	/**
-	 * creates a misquote and sends it to the misquote API
-	 *
-	 * @param misquote the misquote to send
-	 * @param validated true if Angular validated the form, false if not
-	 **/
-	$scope.createMisquote = function(misquote, validated) {
-		if(validated === true) {
-			MisquoteService.create(misquote)
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.alerts[0] = {type: "success", msg: result.data.message};
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
-		}
 	};
 
 	/**
@@ -80,8 +60,8 @@ app.controller("MisquoteController", ["$routeParams", "$scope", "$uibModal", "$w
 			MisquoteService.destroy(misquoteId)
 				.then(function(result) {
 					if(result.data.status === 200) {
-						$scope.deletedMisquote = true;
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
+						$scope.deletedMisquote = true;
 					} else {
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}

@@ -2,6 +2,10 @@
 	display: inline;
 }
 
+.spacer {
+	padding-bottom: 1em;
+}
+
 .table-word-wrap {
 	table-layout: fixed;
 	word-wrap: break-word;

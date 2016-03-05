@@ -1,5 +1,30 @@
 app.controller("HomeController", ["$location", "$scope", "MisquoteService", "Pusher", function($location, $scope, MisquoteService, Pusher) {
+	$scope.collapseAddForm = true;
 	$scope.misquotes = [];
+	$scope.newMisquote = {misquoteId: null, attribution: "", misquote: "", submitter: ""};
+	$scope.alerts = [];
+
+	/**
+	 * creates a misquote and sends it to the misquote API
+	 *
+	 * @param misquote the misquote to send
+	 * @param validated true if Angular validated the form, false if not
+	 **/
+	$scope.createMisquote = function(misquote, validated) {
+		if(validated === true) {
+			MisquoteService.create(misquote)
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+						$scope.newMisquote = {misquoteId: null, attribution: "", misquote: "", submitter: ""};
+						$scope.addMisquoteForm.$setPristine();
+						$scope.addMisquoteForm.$setUntouched();
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+		}
+	};
 
 	/**
 	 * fulfills the promise from retrieving the misquotes from misquote API

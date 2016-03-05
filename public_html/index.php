@@ -20,6 +20,7 @@ $ANGULAR_VERSION = "1.5.0";
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-pusher/0.0.14/angular-pusher.min.js"></script>
 		<script type="text/javascript" src="angular/misquote-of-the-day.js"></script>
 		<script type="text/javascript" src="angular/pusher-config.js"></script>
+		<script type="text/javascript" src="angular/directives/add-misquote.js"></script>
 		<script type="text/javascript" src="angular/directives/edit-misquote.js"></script>
 		<script type="text/javascript" src="angular/directives/footer.js"></script>
 		<script type="text/javascript" src="angular/services/misquote.js"></script>
