@@ -45,5 +45,5 @@
 	</div>
 	<button type="submit" class="btn btn-info btn-lg" ng-disabled="editMisquoteForm.$invalid"><i class="fa fa-share"></i> Misquote</button>
 	<button type="reset" class="btn btn-warning btn-lg"><i class="fa fa-ban"></i> Cancel</button>
+	<button type="button" class="btn btn-danger btn-lg" ng-click="deleteMisquote(misquote.misquoteId);"><i class="fa fa-trash"></i> Delete Misquote</button>
 </form>
-<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg }}</uib-alert>
