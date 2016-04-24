@@ -1,8 +1,8 @@
 .DS_Store
 /.idea
-/node_modules
-/typings
-/app/*.js
-/app/*.js.map
-/dist
+/public_html/node_modules
+/public_html/typings
+/public_html/app/*.js
+/public_html/app/*.js.map
+/public_html/dist
 /vendor
