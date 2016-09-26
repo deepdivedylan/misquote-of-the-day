@@ -1,8 +1,11 @@
 .DS_Store
+/.sync-config.cson
 /.idea
-/public_html/node_modules
-/public_html/typings
-/public_html/app/*.js
-/public_html/app/*.js.map
-/public_html/dist
+/node_modules
+/typings
 /vendor
+/app/**/*.js
+/app/**/*.js.map
+/public_html/dist
+/public_html/index.php
+/npm-debug.log
