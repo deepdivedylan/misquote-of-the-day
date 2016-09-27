@@ -1,5 +1,6 @@
 import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
+import {Status} from "../classes/status";
 
 export abstract class BaseService {
 	constructor(protected http: Http) {}
@@ -14,6 +15,20 @@ export abstract class BaseService {
 			throw(new Error("Bad API status: " + json.status));
 		}
 		return(json.data);
+	}
+
+	protected extractMessage(response: Response) : Status {
+		if(response.status < 200 || response.status >= 300) {
+			throw(new Error("Bad response status: " + response.status))
+		}
+
+		let json = response.json();
+		let jsonStatus = "alert-success";
+		if(json.status !== 200) {
+			jsonStatus = "alert-danger";
+		}
+		let status = new Status(json.status, json.message, jsonStatus);
+		return(status);
 	}
 
 	protected handleError(error:any) {
