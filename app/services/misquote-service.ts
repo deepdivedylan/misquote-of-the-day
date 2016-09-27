@@ -5,7 +5,7 @@ import {BaseService} from "./base-service";
 import {Misquote} from "../classes/misquote";
 
 @Injectable()
-export class DicewareService extends BaseService {
+export class MisquoteService extends BaseService {
 	constructor(protected http: Http) {
 		super(http);
 	}
