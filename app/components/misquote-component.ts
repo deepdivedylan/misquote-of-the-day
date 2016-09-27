@@ -9,6 +9,7 @@ import {Status} from "../classes/status";
 })
 
 export class MisquoteComponent implements OnInit {
+	deleted: boolean = false;
 	misquote: Misquote = new Misquote(0, "", "", "");
 	status: Status = null;
 
@@ -20,6 +21,15 @@ export class MisquoteComponent implements OnInit {
 			this.misquoteService.getMisquote(misquoteId)
 				.subscribe(misquote => this.misquote = misquote);
 		});
+	}
+
+	deleteMisquote() : void {
+		this.misquoteService.deleteMisquote(this.misquote.misquoteId)
+			.subscribe(status => {
+				this.deleted = true;
+				this.status = status
+				this.misquote = new Misquote(0, "", "", "")
+			});
 	}
 
 	editMisquote() : void {
