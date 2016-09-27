@@ -1,7 +1,7 @@
 <?php
-require_once(dirname(dirname(dirname(__DIR__))) . "/vendor/autoload.php");
-require_once(dirname(dirname(__DIR__)) . "/classes/misquote.php");
-require_once(dirname(dirname(__DIR__)) . "/lib/xsrf.php");
+require_once(dirname(__DIR__, 3) . "/vendor/autoload.php");
+require_once(dirname(__DIR__, 3) . "/php/classes/misquote.php");
+require_once(dirname(__DIR__, 3) . "/php/lib/xsrf.php");
 require_once("/etc/apache2/data-design/encrypted-config.php");
 
 // start the session and create a XSRF token
