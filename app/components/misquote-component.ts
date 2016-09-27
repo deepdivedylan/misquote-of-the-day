@@ -8,7 +8,7 @@ import {Misquote} from "../classes/misquote";
 })
 
 export class MisquoteComponent implements OnInit {
-	misquote: Misquote = null;
+	misquote: Misquote = new Misquote(0, "", "", "");
 
 	constructor(private misquoteService: MisquoteService, private route: ActivatedRoute) {}
 
