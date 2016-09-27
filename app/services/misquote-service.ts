@@ -10,11 +10,17 @@ export class MisquoteService extends BaseService {
 		super(http);
 	}
 
-	private dicewareUrl = "api/misquote/";
+	private misquoteUrl = "api/misquote/";
 
-	getAllDiceware() : Observable<Misquote[]> {
-		return(this.http.get(this.dicewareUrl)
-			.map(this.extractData)
+	getAllMisquotes() : Observable<Misquote[]> {
+		return(this.http.get(this.misquoteUrl)
+			.map((json: any) => json.data as Misquote[])
+			.catch(this.handleError));
+	}
+
+	getMisquote(misquoteId: number) : Observable<Misquote> {
+		return(this.http.get(this.misquoteUrl + misquoteId)
+			.map((json: any) => json.data as Misquote)
 			.catch(this.handleError));
 	}
 }
