@@ -5,7 +5,7 @@
 		{{ misquote.attribution }} <cite>added by {{ misquote.submitter }}</cite>
 	</footer>
 </blockquote>
-<form #misquoteForm="ngForm" name="misquoteForm" id="misquoteForm" class="form-horizontal well" novalidate>
+<form #misquoteForm="ngForm" name="misquoteForm" id="misquoteForm" class="form-horizontal well" (ngSubmit)="editMisquote();" novalidate>
 	<h2>Edit Misquote</h2>
 	<hr />
 	<div class="form-group" [ngClass]="{ 'has-error': misquote.touched && misquote.invalid }">
@@ -51,3 +51,7 @@
 	<button type="reset" class="btn btn-warning btn-lg"><i class="fa fa-ban"></i> Cancel</button>
 	<button type="button" class="btn btn-danger btn-lg" (click)="deleteMisquote(misquote.misquoteId);"><i class="fa fa-trash"></i> Delete Misquote</button>
 </form>
+<div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">
+	<button type="button" class="close" aria-label="Close" (click)="status = null;"><span aria-hidden="true">&times;</span></button>
+	{{ status.message }}
+</div>
