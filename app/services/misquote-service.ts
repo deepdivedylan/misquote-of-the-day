@@ -13,6 +13,12 @@ export class MisquoteService extends BaseService {
 
 	private misquoteUrl = "api/misquote/";
 
+	deleteMisquote(misquoteId: number) : Observable<Status> {
+		return(this.http.delete(this.misquoteUrl + misquoteId)
+			.map(this.extractData)
+			.catch(this.handleError));
+	}
+
 	getAllMisquotes() : Observable<Misquote[]> {
 		return(this.http.get(this.misquoteUrl)
 			.map(this.extractData)
