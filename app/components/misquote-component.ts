@@ -8,13 +8,15 @@ import {Misquote} from "../classes/misquote";
 })
 
 export class MisquoteComponent implements OnInit {
-	misquote: Misquote;
+	misquote: Misquote = null;
 
-	constructor(private misquoteService: MisquoteService,  private route: ActivatedRoute) {}
+	constructor(private misquoteService: MisquoteService, private route: ActivatedRoute) {}
 
 	ngOnInit() : void {
 		this.route.params.forEach((params : Params) => {
 			let misquoteId = +params["misquoteId"];
+			this.misquoteService.getMisquote(misquoteId)
+				.subscribe(misquote => this.misquote = misquote);
 		});
 	}
 }
