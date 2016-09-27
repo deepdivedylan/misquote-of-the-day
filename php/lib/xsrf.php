@@ -33,10 +33,10 @@ if(function_exists("apache_request_headers") === false) {
 /**
  * sets an XSRF cookie, generating one if necessary
  *
- * @param string $cookiePath path the cookie is relevant to, blank by default
+ * @param string $cookiePath path the cookie is relevant to, root by default
  * @throws RuntimeException if the session is not active
  **/
-function setXsrfCookie($cookiePath = "") {
+function setXsrfCookie($cookiePath = "/") {
 	// enforce that the session is active
 	if(session_status() !== PHP_SESSION_ACTIVE) {
 		throw(new RuntimeException("session not active"));
@@ -53,7 +53,7 @@ function setXsrfCookie($cookiePath = "") {
  * verifies the X-XSRF-TOKEN sent by Angular matches the XSRF-TOKEN saved in this session.
  * This function returns nothing, but will throw an exception when something does not match
  *
- * @see https://code.angularjs.org/1.4.7/docs/api/ng/service/$http Angular $http service
+ * @see https://code.angularjs.org/1.4.2/docs/api/ng/service/$http Angular $http service
  * @throws InvalidArgumentException when tokens do not match
  * @throws RuntimeException if the session is not active
  **/
@@ -64,7 +64,7 @@ function verifyXsrf() {
 	}
 
 	// grab the XSRF token sent by Angular, jQuery, or JavaScript in the header
-	$headers = apache_request_headers();
+	$headers = array_change_key_case(apache_request_headers(), CASE_UPPER);
 	if(array_key_exists("X-XSRF-TOKEN", $headers) === false) {
 		throw(new InvalidArgumentException("invalid XSRF token", 401));
 	}
