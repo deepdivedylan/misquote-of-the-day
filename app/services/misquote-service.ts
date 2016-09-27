@@ -14,13 +14,13 @@ export class MisquoteService extends BaseService {
 
 	getAllMisquotes() : Observable<Misquote[]> {
 		return(this.http.get(this.misquoteUrl)
-			.map((json: any) => json.data as Misquote[])
+			.map(this.extractData)
 			.catch(this.handleError));
 	}
 
 	getMisquote(misquoteId: number) : Observable<Misquote> {
 		return(this.http.get(this.misquoteUrl + misquoteId)
-			.map((json: any) => json.data as Misquote)
+			.map(this.extractData)
 			.catch(this.handleError));
 	}
 }
