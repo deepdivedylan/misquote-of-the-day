@@ -12,6 +12,10 @@ export class MisquoteListComponent implements OnInit {
 	constructor(private misquoteService: MisquoteService) {}
 
 	ngOnInit() : void {
+		this.reloadMisquotes();
+	}
+
+	reloadMisquotes() : void {
 		this.misquoteService.getAllMisquotes()
 			.subscribe(misquotes => this.misquotes = misquotes);
 	}
