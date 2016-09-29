@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {MisquoteService} from "../services/misquote-service";
 import {Misquote} from "../classes/misquote";
 import {Status} from "../classes/status";
@@ -8,6 +8,7 @@ import {Status} from "../classes/status";
 })
 
 export class MisquoteListComponent implements OnInit {
+	@ViewChild("misquoteForm") misquoteForm;
 	misquotes: Misquote[] = [];
 	misquote: Misquote = new Misquote(0, "", "", "");
 	status: Status = null;
@@ -29,7 +30,7 @@ export class MisquoteListComponent implements OnInit {
 				this.status = status;
 				if(status.status === 200) {
 					this.reloadMisquotes();
-					// TODO: clear form
+					this.misquoteForm.reset();
 				}
 			});
 	}
