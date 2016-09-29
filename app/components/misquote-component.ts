@@ -27,8 +27,8 @@ export class MisquoteComponent implements OnInit {
 		this.misquoteService.deleteMisquote(this.misquote.misquoteId)
 			.subscribe(status => {
 				this.deleted = true;
-				this.status = status
-				this.misquote = new Misquote(0, "", "", "")
+				this.status = status;
+				this.misquote = new Misquote(0, "", "", "");
 			});
 	}
 
