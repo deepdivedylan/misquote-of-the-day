@@ -31,6 +31,12 @@ export class MisquoteService extends BaseService {
 			.catch(this.handleError));
 	}
 
+	createMisquote(misquote: Misquote) : Observable<Status> {
+		return(this.http.post(this.misquoteUrl, misquote)
+			.map(this.extractMessage)
+			.catch(this.handleError));
+	}
+
 	editMisquote(misquote: Misquote) : Observable<Status> {
 		return(this.http.put(this.misquoteUrl + misquote.misquoteId, misquote)
 			.map(this.extractMessage)
