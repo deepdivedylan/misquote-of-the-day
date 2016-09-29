@@ -49,12 +49,13 @@
 </div>
 <hr />
 <h1>All Misquotes</h1>
-<table class="table table-bordered table-hover table-responsive table-striped table-word-wrap">
-	<tr><th>Misquote ID</th><th>Misquote</th><th>Attribution</th><th>Submitter</th></tr>
+<table class="table table-bordered table-responsive table-striped table-word-wrap">
+	<tr><th>Misquote ID</th><th>Misquote</th><th>Attribution</th><th>Submitter</th><th>Edit</th></tr>
 	<tr *ngFor="let misquote of misquotes">
 		<td>{{ misquote.misquoteId }}</td>
 		<td>{{ misquote.misquote }}</td>
 		<td>{{ misquote.attribution }}</td>
 		<td>{{ misquote.submitter }}</td>
+		<td><a class="btn btn-warning" (click)="switchMisquote(misquote);"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
 	</tr>
 </table>

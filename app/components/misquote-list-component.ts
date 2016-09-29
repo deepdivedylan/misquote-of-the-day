@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
+import {Router} from "@angular/router";
 import {MisquoteService} from "../services/misquote-service";
 import {Misquote} from "../classes/misquote";
 import {Status} from "../classes/status";
@@ -13,7 +14,7 @@ export class MisquoteListComponent implements OnInit {
 	misquote: Misquote = new Misquote(0, "", "", "");
 	status: Status = null;
 
-	constructor(private misquoteService: MisquoteService) {}
+	constructor(private misquoteService: MisquoteService, private router: Router) {}
 
 	ngOnInit() : void {
 		this.reloadMisquotes();
@@ -22,6 +23,10 @@ export class MisquoteListComponent implements OnInit {
 	reloadMisquotes() : void {
 		this.misquoteService.getAllMisquotes()
 			.subscribe(misquotes => this.misquotes = misquotes);
+	}
+
+	switchMisquote(misquote : Misquote) : void {
+		this.router.navigate(["/misquote/", misquote.misquoteId]);
 	}
 
 	createMisquote() : void {
