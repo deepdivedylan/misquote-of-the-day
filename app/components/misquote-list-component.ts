@@ -25,6 +25,12 @@ export class MisquoteListComponent implements OnInit {
 
 	createMisquote() : void {
 		this.misquoteService.createMisquote(this.misquote)
-			.subscribe(status => this.status = status);
+			.subscribe(status => {
+				this.status = status;
+				if(status.status === 200) {
+					this.reloadMisquotes();
+					// TODO: clear form
+				}
+			});
 	}
 }
