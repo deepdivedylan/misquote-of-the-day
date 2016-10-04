@@ -15,7 +15,7 @@ export class MisquoteService extends BaseService {
 
 	deleteMisquote(misquoteId: number) : Observable<Status> {
 		return(this.http.delete(this.misquoteUrl + misquoteId)
-			.map(this.extractData)
+			.map(this.extractMessage)
 			.catch(this.handleError));
 	}
 
