@@ -5,7 +5,7 @@ import {Misquote} from "../classes/misquote";
 import {Status} from "../classes/status";
 
 @Component({
-	templateUrl: "./templates/misquote-list.php"
+	templateUrl: "templates/misquote-list.php"
 })
 
 export class MisquoteListComponent implements OnInit {
