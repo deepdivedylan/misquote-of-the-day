@@ -1,11 +1,12 @@
+
 .DS_Store
 /.sync-config.cson
 /.idea
 /node_modules
-/typings
 /vendor
-/app/**/*.js
-/app/**/*.js.map
+/src/**/*.js
+/src/**/*.js.map
 /public_html/dist
-/public_html/index.php
+/public_html/index.html
 /npm-debug.log
+/webpack/target.js
