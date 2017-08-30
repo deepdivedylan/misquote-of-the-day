@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 
 @Component({
 	selector: 'misquote-app',
-	templateUrl: './templates/misquote-src.php'
+	templateUrl: './templates/misquote-app.php'
 })
 
 export class AppComponent {
