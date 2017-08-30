@@ -2,7 +2,7 @@
 require_once(dirname(__DIR__, 3) . "/vendor/autoload.php");
 require_once(dirname(__DIR__, 3) . "/php/classes/misquote.php");
 require_once(dirname(__DIR__, 3) . "/php/lib/xsrf.php");
-require_once("/etc/apache2/data-design/encrypted-config.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 // start the session and create a XSRF token
 if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -29,7 +29,7 @@ try {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 	// grab the mySQL connection
-	$pdo = connectToEncryptedMySQL("/etc/apache2/data-design/misquote.ini");
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/misquote.ini");
 
 	// handle all RESTful calls to Misquote
 	// get some or all Misquotes
