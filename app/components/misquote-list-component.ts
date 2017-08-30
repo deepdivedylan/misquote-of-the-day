@@ -3,7 +3,6 @@ import {Router} from "@angular/router";
 import {MisquoteService} from "../services/misquote-service";
 import {Misquote} from "../classes/misquote";
 import {Status} from "../classes/status";
-import {Form} from "@angular/forms";
 
 @Component({
 	templateUrl: "templates/misquote-list.php"
