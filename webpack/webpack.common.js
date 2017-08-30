@@ -23,7 +23,7 @@ module.exports = {
 			},
 			{
 				test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-				loader: "file-loader?name=/assets/[name].[hash].[ext]"
+				loader: "url-loader?limit=100000"
 			},
 			{
 				test: /\.css$/,
