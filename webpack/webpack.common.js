@@ -7,7 +7,7 @@ module.exports = {
 	entry: {
 		"polyfills": helpers.root("src") + "/polyfills.ts",
 		"vendor": helpers.root("src") + "/vendor.ts",
-		"app": helpers.root("src") + "/app.ts",
+		"app": helpers.root("src") + "/main.ts",
 		"css": helpers.root("src") + "/app.css"
 	},
 
