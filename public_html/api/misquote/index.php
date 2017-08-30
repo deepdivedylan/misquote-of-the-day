@@ -16,7 +16,7 @@ $reply->data = null;
 
 try {
 	// create the Pusher connection
-	$config = readConfig("/etc/apache/capstone-mysql/misquote.ini");
+	$config = readConfig("/etc/apache2/capstone-mysql/misquote.ini");
 	$pusherConfig = json_decode($config["pusher"]);
 	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["encrypted" => true]);
 
