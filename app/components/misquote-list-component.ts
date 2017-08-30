@@ -3,13 +3,14 @@ import {Router} from "@angular/router";
 import {MisquoteService} from "../services/misquote-service";
 import {Misquote} from "../classes/misquote";
 import {Status} from "../classes/status";
+import {Form} from "@angular/forms";
 
 @Component({
 	templateUrl: "templates/misquote-list.php"
 })
 
 export class MisquoteListComponent implements OnInit {
-	@ViewChild("misquoteForm") misquoteForm;
+	@ViewChild("misquoteForm") misquoteForm : any;
 	misquotes: Misquote[] = [];
 	misquote: Misquote = new Misquote(0, "", "", "");
 	status: Status = null;
