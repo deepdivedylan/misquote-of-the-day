@@ -4,6 +4,8 @@ import {MisquoteListComponent} from "./components/misquote-list-component";
 import {SplashComponent} from "./components/splash-component";
 import {MisquoteService} from "./services/misquote-service";
 import {APP_BASE_HREF} from "@angular/common";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {DataIntercept} from "./services/data-intercept";
 
 
 export const allAppComponents = [MisquoteComponent, MisquoteListComponent, SplashComponent];
@@ -16,6 +18,7 @@ export const routes: Routes = [
 
 export const appRoutingProviders: any[] = [
 	{provide: APP_BASE_HREF, useValue: window["_base_href"]},
+	{provide: HTTP_INTERCEPTORS, useClass: DataIntercept, multi: true},
 	MisquoteService
 ];
 

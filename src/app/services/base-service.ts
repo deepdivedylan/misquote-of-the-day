@@ -1,9 +1,10 @@
-import {Http, Response} from "@angular/http";
+import {Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Status} from "../classes/status";
 
 export abstract class BaseService {
-	constructor(protected http: Http) {}
+	constructor(protected http: HttpClient) {}
 
 	protected extractData(response: Response) : any {
 		if(response.status < 200 || response.status >= 300) {
