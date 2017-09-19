@@ -11,7 +11,7 @@ import {Observable} from "rxjs/Observable";
  * 2. data (any, optional): result of a GET request
  * 3. message (string, optional): status message result of a non GET request
  *
- * this interceptor will usew the HttpResponse to return either the data or the status message
+ * this interceptor will use the HttpResponse to return either the data or the status message
  **/
 @Injectable()
 export class DeepDiveInterceptor implements HttpInterceptor {
