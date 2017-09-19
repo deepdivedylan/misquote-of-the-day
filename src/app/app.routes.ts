@@ -5,7 +5,7 @@ import {SplashComponent} from "./components/splash-component";
 import {MisquoteService} from "./services/misquote-service";
 import {APP_BASE_HREF} from "@angular/common";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
-import {DataIntercept} from "./services/data-intercept";
+import {DataIntercept} from "./services/data.intercept";
 
 
 export const allAppComponents = [MisquoteComponent, MisquoteListComponent, SplashComponent];
