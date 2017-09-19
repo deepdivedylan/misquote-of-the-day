@@ -1,5 +1,7 @@
 <?php
 
+namespace Edu\Cnm\Misquote;
+
 /**
  * Misquote mySQL Enabled Class
  *
@@ -7,7 +9,7 @@
  *
  * @author Dylan McDonald <dmcdonald21@cnm.edu>
  **/
-class Misquote implements JsonSerializable {
+class Misquote implements \JsonSerializable {
 	/**
 	 * id for this Misquote; this is the primary key
 	 * @var int|null $misquoteId
@@ -36,25 +38,25 @@ class Misquote implements JsonSerializable {
 	 * @param string $newAttribution string containing attribution for this Misquote
 	 * @param string $newMisquote string containing misquote
 	 * @param string $newSubmitter string containing who submitted this Misquote
-	 * @throws InvalidArgumentException if data types are not valid
-	 * @throws RangeException if data values are out of bounds (e.g., strings too long, negative integers)
-	 * @throws Exception if some other exception is thrown
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+	 * @throws \Exception if some other exception is thrown
 	 */
-	public function __construct($newMisquoteId, $newAttribution, $newMisquote, $newSubmitter) {
+	public function __construct(?int $newMisquoteId, string $newAttribution, string $newMisquote, string $newSubmitter) {
 		try {
 			$this->setMisquoteId($newMisquoteId);
 			$this->setAttribution($newAttribution);
 			$this->setMisquote($newMisquote);
 			$this->setSubmitter($newSubmitter);
-		} catch(InvalidArgumentException $invalidArgument) {
+		} catch(\InvalidArgumentException $invalidArgument) {
 			// rethrow the exception to the caller
-			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
-		} catch(RangeException $range) {
+			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(\RangeException $range) {
 			// rethrow the exception to the caller
-			throw(new RangeException($range->getMessage(), 0, $range));
-		} catch(Exception $exception) {
+			throw(new \RangeException($range->getMessage(), 0, $range));
+		} catch(\Exception $exception) {
 			// rethrow generic exception
-			throw(new Exception($exception->getMessage(), 0, $exception));
+			throw(new \Exception($exception->getMessage(), 0, $exception));
 		}
 	}
 
@@ -63,7 +65,7 @@ class Misquote implements JsonSerializable {
 	 *
 	 * @return int|null value of misquoteId
 	 **/
-	public function getMisquoteId() {
+	public function getMisquoteId() : ?int {
 		return($this->misquoteId);
 	}
 
@@ -71,29 +73,23 @@ class Misquote implements JsonSerializable {
 	 * mutator method for misquoteId
 	 *
 	 * @param int|null $newMisquoteId new value of misquote id
-	 * @throws InvalidArgumentException if $newMisquoteId is not an integer
-	 * @throws RangeException if $newMisquoteId is not positive
+	 * @throws \InvalidArgumentException if $newMisquoteId is not an integer
+	 * @throws \RangeException if $newMisquoteId is not positive
 	 **/
-	public function setMisquoteId($newMisquoteId) {
+	public function setMisquoteId(?int $newMisquoteId) : void {
 		// base case: if the misquote id is null, this a new misquote without a mySQL assigned id (yet)
 		if($newMisquoteId === null) {
 			$this->misquoteId = null;
 			return;
 		}
 
-		// verify the misquote id is valid
-		$newMisquoteId = filter_var($newMisquoteId, FILTER_VALIDATE_INT);
-		if($newMisquoteId === false) {
-			throw(new InvalidArgumentException("misquote id is not a valid integer"));
-		}
-
 		// verify the misquote id is positive
 		if($newMisquoteId <= 0) {
-			throw(new RangeException("misquote id is not positive"));
+			throw(new \RangeException("misquote id is not positive"));
 		}
 
-		// convert and store the misquote id
-		$this->misquoteId = intval($newMisquoteId);
+		// store the misquote id
+		$this->misquoteId = $newMisquoteId;
 	}
 
 	/**
@@ -101,7 +97,7 @@ class Misquote implements JsonSerializable {
 	 *
 	 * @return string value of attribution
 	 **/
-	public function getAttribution() {
+	public function getAttribution() : string {
 		return($this->attribution);
 	}
 
@@ -109,20 +105,20 @@ class Misquote implements JsonSerializable {
 	 * mutator method for attribution
 	 *
 	 * @param string $newAttribution new value of attribution
-	 * @throws InvalidArgumentException if $newAttribution is not a string or insecure
-	 * @throws RangeException if $newAttribution is > 64 characters
+	 * @throws \InvalidArgumentException if $newAttribution is not a string or insecure
+	 * @throws \RangeException if $newAttribution is > 64 characters
 	 **/
-	public function setAttribution($newAttribution) {
+	public function setAttribution(string $newAttribution) : void {
 		// verify the attribution is secure
 		$newAttribution = trim($newAttribution);
 		$newAttribution = filter_var($newAttribution, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newAttribution) === true) {
-			throw(new InvalidArgumentException("attribution is empty or insecure"));
+			throw(new \InvalidArgumentException("attribution is empty or insecure"));
 		}
 
 		// verify the attribution will fit in the database
 		if(strlen($newAttribution) > 64) {
-			throw(new RangeException("attribution too large"));
+			throw(new \RangeException("attribution too large"));
 		}
 
 		// store the attribution
@@ -134,7 +130,7 @@ class Misquote implements JsonSerializable {
 	 * 
 	 * @return string value of misquote
 	 **/
-	public function getMisquote() {
+	public function getMisquote() : string {
 		return($this->misquote);
 	}
 
@@ -142,20 +138,20 @@ class Misquote implements JsonSerializable {
 	 * mutator method for misquote
 	 *
 	 * @param string $newMisquote new value of misquote
-	 * @throws InvalidArgumentException if $newMisquote is not a string or insecure
-	 * @throws RangeException if $newMisquote is > 255 characters
+	 * @throws \InvalidArgumentException if $newMisquote is not a string or insecure
+	 * @throws \RangeException if $newMisquote is > 255 characters
 	 **/
-	public function setMisquote($newMisquote) {
+	public function setMisquote(string $newMisquote) : void {
 		// verify the misquote is secure
 		$newMisquote = trim($newMisquote);
 		$newMisquote = filter_var($newMisquote, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newMisquote) === true) {
-			throw(new InvalidArgumentException("misquote is empty or insecure"));
+			throw(new \InvalidArgumentException("misquote is empty or insecure"));
 		}
 
 		// verify the misquote will fit in the database
 		if(strlen($newMisquote) > 255) {
-			throw(new RangeException("misquote too large"));
+			throw(new \RangeException("misquote too large"));
 		}
 
 		// store the misquote
@@ -167,7 +163,7 @@ class Misquote implements JsonSerializable {
 	 *
 	 * @return string value of submitter
 	 **/
-	public function getSubmitter() {
+	public function getSubmitter() : string {
 		return($this->submitter);
 	}
 
@@ -175,20 +171,20 @@ class Misquote implements JsonSerializable {
 	 * mutator method for submitter
 	 *
 	 * @param string $newSubmitter new value of submitter
-	 * @throws InvalidArgumentException if $newSubmitter is not a string or insecure
-	 * @throws RangeException if $newSubmitter is > 64 characters
+	 * @throws \InvalidArgumentException if $newSubmitter is not a string or insecure
+	 * @throws \RangeException if $newSubmitter is > 64 characters
 	 **/
-	public function setSubmitter($newSubmitter) {
+	public function setSubmitter(string $newSubmitter) : void {
 		// verify the submitter is secure
 		$newSubmitter = trim($newSubmitter);
 		$newSubmitter = filter_var($newSubmitter, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newSubmitter) === true) {
-			throw(new InvalidArgumentException("submitter is empty or insecure"));
+			throw(new \InvalidArgumentException("submitter is empty or insecure"));
 		}
 
 		// verify the submitter will fit in the database
 		if(strlen($newSubmitter) > 64) {
-			throw(new RangeException("submitter too large"));
+			throw(new \RangeException("submitter too large"));
 		}
 
 		// store the submitter
@@ -198,13 +194,13 @@ class Misquote implements JsonSerializable {
 	/**
 	 * inserts this Misquote into mySQL
 	 *
-	 * @param PDO $pdo PDO connection object
-	 * @throws PDOException when mySQL related errors occur
+	 * @param \PDO $pdo \PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
 	 **/
-	public function insert(PDO $pdo) {
+	public function insert(\PDO $pdo) : void {
 		// enforce the misquoteId is null (i.e., don't insert a misquote that already exists)
 		if($this->misquoteId !== null) {
-			throw(new PDOException("not a new misquote"));
+			throw(new \PDOException("not a new misquote"));
 		}
 
 		// create query template
@@ -222,13 +218,13 @@ class Misquote implements JsonSerializable {
 	/**
 	 * deletes this Misquote from mySQL
 	 *
-	 * @param PDO $pdo PDO connection object
-	 * @throws PDOException when mySQL related errors occur
+	 * @param \PDO $pdo \PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
 	 **/
-	public function delete(PDO $pdo) {
+	public function delete(\PDO $pdo) : void {
 		// enforce the misquoteId is not null (i.e., don't delete a misquote that does not exist)
 		if($this->misquoteId === null) {
-			throw(new PDOException("unable to delete a misquote that does not exist"));
+			throw(new \PDOException("unable to delete a misquote that does not exist"));
 		}
 
 		// create query template
@@ -243,13 +239,13 @@ class Misquote implements JsonSerializable {
 	/**
 	 * updates this Misquote in mySQL
 	 *
-	 * @param PDO $pdo PDO connection object
-	 * @throws PDOException when mySQL related errors occur
+	 * @param \PDO $pdo \PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
 	 **/
-	public function update(PDO $pdo) {
+	public function update(\PDO $pdo) : void {
 		// enforce the misquoteId is not null (i.e., don't update a misquote that does not exist)
 		if($this->misquoteId === null) {
-			throw(new PDOException("unable to update a misquote that does not exist"));
+			throw(new \PDOException("unable to update a misquote that does not exist"));
 		}
 
 		// create query template
@@ -264,19 +260,19 @@ class Misquote implements JsonSerializable {
 	/**
 	 * gets the Misquote by misquote id
 	 *
-	 * @param PDO $pdo PDO connection object
+	 * @param \PDO $pdo \PDO connection object
 	 * @param int $misquoteId misquote id to search for
 	 * @return Misquote|null Misquote found or null if not found
-	 * @throws PDOException when mySQL related errors occur
+	 * @throws \PDOException when mySQL related errors occur
 	 **/
-	public static function getMisquoteByMisquoteId(PDO $pdo, $misquoteId) {
+	public static function getMisquoteByMisquoteId(\PDO $pdo, int $misquoteId) : ?Misquote {
 		// sanitize the misquoteId before searching
 		$misquoteId = filter_var($misquoteId, FILTER_VALIDATE_INT);
 		if($misquoteId === false) {
-			throw(new PDOException("misquote id is not an integer"));
+			throw(new \PDOException("misquote id is not an integer"));
 		}
 		if($misquoteId <= 0) {
-			throw(new PDOException("misquote id is not positive"));
+			throw(new \PDOException("misquote id is not positive"));
 		}
 
 		// create query template
@@ -290,14 +286,14 @@ class Misquote implements JsonSerializable {
 		// grab the misquote from mySQL
 		try {
 			$misquote = null;
-			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row   = $statement->fetch();
 			if($row !== false) {
 				$misquote = new Misquote($row["misquoteId"], $row["attribution"], $row["misquote"], $row["submitter"]);
 			}
-		} catch(Exception $exception) {
+		} catch(\Exception $exception) {
 			// if the row couldn't be converted, rethrow it
-			throw(new PDOException($exception->getMessage(), 0, $exception));
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return($misquote);
 	}
@@ -305,18 +301,21 @@ class Misquote implements JsonSerializable {
 	/**
 	 * gets Misquotes by submitter
 	 *
-	 * @param PDO $pdo PDO connection object
+	 * @param \PDO $pdo \PDO connection object
 	 * @param string $submitter submitter to search by
-	 * @return SplFixedArray all Misquotes found for this submitter
-	 * @throws PDOException when mySQL related errors occur
+	 * @return \SplFixedArray all Misquotes found for this submitter
+	 * @throws \PDOException when mySQL related errors occur
 	 **/
-	public static function getMisquoteBySubmitter(PDO $pdo, $submitter) {
+	public static function getMisquoteBySubmitter(\PDO $pdo, string $submitter) : \SplFixedArray {
 		// sanitize the submitter before searching
 		$submitter = trim($submitter);
 		$submitter = filter_var($submitter, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($submitter) === true) {
-			throw(new PDOException("submitter is invalid"));
+			throw(new \PDOException("submitter is invalid"));
 		}
+
+		// escape any mySQL wild cards
+		$submitter = str_replace("_", "\\_", str_replace("%", "\\%", $submitter));
 
 		// create query template
 		$query = "SELECT misquoteId, attribution, misquote, submitter FROM misquote WHERE submitter LIKE :submitter";
@@ -328,16 +327,16 @@ class Misquote implements JsonSerializable {
 		$statement->execute($parameters);
 
 		// build an array of misquotes
-		$misquotes = new SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		$misquotes = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$misquote = new Misquote($row["misquoteId"], $row["attribution"], $row["misquote"], $row["submitter"]);
 				$misquotes[$misquotes->key()] = $misquote;
 				$misquotes->next();
-			} catch(Exception $exception) {
+			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
-				throw(new PDOException($exception->getMessage(), 0, $exception));
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
 		return($misquotes);
@@ -346,27 +345,27 @@ class Misquote implements JsonSerializable {
 	/**
 	 * gets all Misquotes
 	 *
-	 * @param PDO $pdo PDO connection object
-	 * @return SplFixedArray all Misquotes found for this submitter
-	 * @throws PDOException when mySQL related errors occur
+	 * @param \PDO $pdo \PDO connection object
+	 * @return \SplFixedArray all Misquotes found for this submitter
+	 * @throws \PDOException when mySQL related errors occur
 	 **/
-	public static function getAllMisquotes(PDO $pdo) {
+	public static function getAllMisquotes(\PDO $pdo) : \SplFixedArray {
 		// create query template and execute the statement
 		$query = "SELECT misquoteId, attribution, misquote, submitter FROM misquote";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
 		// build an array of misquotes
-		$misquotes = new SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		$misquotes = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$misquote = new Misquote($row["misquoteId"], $row["attribution"], $row["misquote"], $row["submitter"]);
 				$misquotes[$misquotes->key()] = $misquote;
 				$misquotes->next();
-			} catch(Exception $exception) {
+			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
-				throw(new PDOException($exception->getMessage(), 0, $exception));
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
 		return($misquotes);
