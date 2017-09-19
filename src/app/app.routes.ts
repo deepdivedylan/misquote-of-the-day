@@ -1,5 +1,5 @@
 import {RouterModule, Routes} from "@angular/router";
-import {MisquoteComponent} from "./components/misquote-component";
+import {MisquoteComponent} from "./components/misquote.component";
 import {MisquoteListComponent} from "./components/misquote.list.component";
 import {SplashComponent} from "./components/splash.component";
 import {MisquoteService} from "./services/misquote.service";
