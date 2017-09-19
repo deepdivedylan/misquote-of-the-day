@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {Router} from "@angular/router";
-import {MisquoteService} from "../services/misquote-service";
+import {MisquoteService} from "../services/misquote.service";
 import {Misquote} from "../classes/misquote";
 import {Status} from "../classes/status";
 
