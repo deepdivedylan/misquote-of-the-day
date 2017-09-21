@@ -1,0 +1,12 @@
+<phpunit>
+	<testsuites>
+		<testsuite name="Misquote of the Day">
+			<file>ValidateUuidTest.php</file>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">..</directory>
+		</whitelist>
+	</filter>
+</phpunit>
