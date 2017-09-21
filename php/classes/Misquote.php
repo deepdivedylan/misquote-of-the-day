@@ -376,6 +376,8 @@ class Misquote implements \JsonSerializable {
 	 * @return array array containing all fields in this Misquote
 	 **/
 	function jsonSerialize() {
-		return (get_object_vars($this));
+		$fields = get_object_vars($this);
+		$fields["misquoteId"] = $this->misquoteId->toString();
+		return($fields);
 	}
 }
