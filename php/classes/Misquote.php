@@ -74,8 +74,8 @@ class Misquote implements \JsonSerializable {
 	 * mutator method for misquoteId
 	 *
 	 * @param string|Uuid $newMisquoteId new value of misquote id
-	 * @throws \InvalidArgumentException if $newMisquoteId is not a valid UUID
-	 * @throws \RangeException if $newMisquoteId is not a valid UUID v4
+	 * @throws \InvalidArgumentException if $newMisquoteId is not a valid uuid
+	 * @throws \RangeException if $newMisquoteId is not a valid uuid v4
 	 **/
 	public function setMisquoteId($newMisquoteId): void {
 		try {
