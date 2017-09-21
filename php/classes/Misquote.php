@@ -83,15 +83,17 @@ class Misquote implements \JsonSerializable {
 	public function setMisquoteId($newMisquoteId): void {
 		// verify a string misquote id
 		if(gettype($newMisquoteId) === "string") {
+			// 16 characters is binary data from mySQL - convert to string and fall to next if block
+			if(strlen($newMisquoteId) === 16) {
+				$newMisquoteId = bin2hex($newMisquoteId);
+			}
+
 			// 32 characters is a human readable UUID
 			if(strlen($newMisquoteId) === 32) {
 				if(Uuid::isValid($newMisquoteId) === false) {
 					throw(new \InvalidArgumentException("invalid misquote id"));
 				}
 				$uuid = Uuid::fromString($newMisquoteId);
-			} else if(strlen($newMisquoteId) === 16) {
-				// 16 characters is binary data from mySQL
-				$uuid = Uuid::fromBytes($newMisquoteId);
 			} else {
 				throw(new \InvalidArgumentException("invalid misquote id"));
 			}
