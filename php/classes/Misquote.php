@@ -226,11 +226,12 @@ class Misquote implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "INSERT INTO misquote(attribution, misquote, submitter) VALUES(:attribution, :misquote, :submitter)";
+		$query = "INSERT INTO misquote(misquoteId, attribution, misquote, submitter) VALUES(:misquoteId, :attribution, :misquote, :submitter)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
-		$parameters = ["attribution" => $this->attribution, "misquote" => $this->misquote, "submitter" => $this->submitter];
+		$misquoteId = $this->misquoteId->getBytes();
+		$parameters = ["misquoteId" => $misquoteId, "attribution" => $this->attribution, "misquote" => $this->misquote, "submitter" => $this->submitter];
 		$statement->execute($parameters);
 
 		// update the null misquoteId with what mySQL just gave us
