@@ -1,6 +1,6 @@
 <?php
 
-namespace Edu\Cnm\Misquote;
+namespace Edu\Cnm\MisquoteOfTheDay;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
