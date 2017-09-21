@@ -266,11 +266,19 @@ class Misquote implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 **/
 	public static function getMisquoteByMisquoteId(\PDO $pdo, string $misquoteId): ?Misquote {
+		// sanitize the misquote id before searching
+		try {
+			$misquoteId = self::validateUuid($misquoteId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
 		// create query template
 		$query = "SELECT misquoteId, attribution, misquote, submitter FROM misquote WHERE misquoteId = :misquoteId";
 		$statement = $pdo->prepare($query);
 
 		// bind the misquote id to the place holder in the template
+		$misquoteId = $misquoteId->getBytes();
 		$parameters = ["misquoteId" => $misquoteId];
 		$statement->execute($parameters);
 
