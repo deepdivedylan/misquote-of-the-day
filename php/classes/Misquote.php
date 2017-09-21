@@ -2,6 +2,7 @@
 
 namespace Edu\Cnm\Misquote;
 
+require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
 use Ramsey\Uuid\Uuid;
@@ -14,6 +15,8 @@ use Ramsey\Uuid\Uuid;
  * @author Dylan McDonald <dmcdonald21@cnm.edu>
  **/
 class Misquote implements \JsonSerializable {
+	use ValidateUuid;
+
 	/**
 	 * id for this Misquote; this is the primary key
 	 * @var Uuid $misquoteId
@@ -52,15 +55,9 @@ class Misquote implements \JsonSerializable {
 			$this->setAttribution($newAttribution);
 			$this->setMisquote($newMisquote);
 			$this->setSubmitter($newSubmitter);
-		} catch(\InvalidArgumentException $invalidArgument) {
-			// rethrow the exception to the caller
-			throw(new \InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
-		} catch(\RangeException $range) {
-			// rethrow the exception to the caller
-			throw(new \RangeException($range->getMessage(), 0, $range));
-		} catch(\Exception $exception) {
-			// rethrow generic exception
-			throw(new \Exception($exception->getMessage(), 0, $exception));
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
 
@@ -81,33 +78,11 @@ class Misquote implements \JsonSerializable {
 	 * @throws \RangeException if $newMisquoteId is not a valid UUID v4
 	 **/
 	public function setMisquoteId($newMisquoteId): void {
-		// verify a string misquote id
-		if(gettype($newMisquoteId) === "string") {
-			// 16 characters is binary data from mySQL - convert to string and fall to next if block
-			if(strlen($newMisquoteId) === 16) {
-				$newMisquoteId = bin2hex($newMisquoteId);
-			}
-
-			// 32 characters is a human readable UUID
-			if(strlen($newMisquoteId) === 32) {
-				if(Uuid::isValid($newMisquoteId) === false) {
-					throw(new \InvalidArgumentException("invalid misquote id"));
-				}
-				$uuid = Uuid::fromString($newMisquoteId);
-			} else {
-				throw(new \InvalidArgumentException("invalid misquote id"));
-			}
-		} else if(gettype($newMisquoteId) === "object" && get_class($newMisquoteId) === "Ramsey\\Uuid\\Uuid") {
-			// if the misquote id is already a valid UUID, press on
-			$uuid = $newMisquoteId;
-		} else {
-			// throw out any other trash
-			throw(new \InvalidArgumentException("invalid misquote id"));
-		}
-
-		// verify the misquote id is UUID v4
-		if($uuid->getVersion() !== 4) {
-			throw(new \RangeException("misquote id is incorrect version"));
+		try {
+			$uuid = self::validateUuid($newMisquoteId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 
 		// store the misquote id
@@ -255,7 +230,8 @@ class Misquote implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
-		$parameters = ["misquoteId" => $this->misquoteId];
+		$misquoteId = $this->misquoteId->getBytes();
+		$parameters = ["misquoteId" => $misquoteId];
 		$statement->execute($parameters);
 	}
 
@@ -276,7 +252,8 @@ class Misquote implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
-		$parameters = ["attribution" => $this->attribution, "misquote" => $this->misquote, "submitter" => $this->submitter, "misquoteId" => $this->misquoteId];
+		$misquoteId = $this->misquoteId->getBytes();
+		$parameters = ["attribution" => $this->attribution, "misquote" => $this->misquote, "submitter" => $this->submitter, "misquoteId" => $misquoteId];
 		$statement->execute($parameters);
 	}
 
@@ -284,20 +261,11 @@ class Misquote implements \JsonSerializable {
 	 * gets the Misquote by misquote id
 	 *
 	 * @param \PDO $pdo \PDO connection object
-	 * @param int $misquoteId misquote id to search for
+	 * @param string $misquoteId misquote id to search for
 	 * @return Misquote|null Misquote found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 **/
-	public static function getMisquoteByMisquoteId(\PDO $pdo, int $misquoteId): ?Misquote {
-		// sanitize the misquoteId before searching
-		$misquoteId = filter_var($misquoteId, FILTER_VALIDATE_INT);
-		if($misquoteId === false) {
-			throw(new \PDOException("misquote id is not an integer"));
-		}
-		if($misquoteId <= 0) {
-			throw(new \PDOException("misquote id is not positive"));
-		}
-
+	public static function getMisquoteByMisquoteId(\PDO $pdo, string $misquoteId): ?Misquote {
 		// create query template
 		$query = "SELECT misquoteId, attribution, misquote, submitter FROM misquote WHERE misquoteId = :misquoteId";
 		$statement = $pdo->prepare($query);
