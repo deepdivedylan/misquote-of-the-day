@@ -1,6 +1,14 @@
 {
 	"require": {
+		"phpdocumentor/phpdocumentor": "@stable",
+		"phpunit/dbunit": "@stable",
+		"phpunit/phpunit": "@stable",
 		"pusher/pusher-php-server": "@stable",
 		"ramsey/uuid": "@stable"
+	},
+
+	"scripts": {
+		"phpdoc": "./vendor/bin/phpdoc -t doc -d ./php/classes",
+		"phpunit" : "./vendor/bin/phpunit -c ./php/classes/Test --coverage-html coverage"
 	}
 }
