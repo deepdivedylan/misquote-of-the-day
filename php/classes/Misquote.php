@@ -195,11 +195,6 @@ class Misquote implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 **/
 	public function insert(\PDO $pdo): void {
-		// enforce the misquoteId is null (i.e., don't insert a misquote that already exists)
-		if($this->misquoteId !== null) {
-			throw(new \PDOException("not a new misquote"));
-		}
-
 		// create query template
 		$query = "INSERT INTO misquote(misquoteId, attribution, misquote, submitter) VALUES(:misquoteId, :attribution, :misquote, :submitter)";
 		$statement = $pdo->prepare($query);
@@ -220,11 +215,6 @@ class Misquote implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 **/
 	public function delete(\PDO $pdo): void {
-		// enforce the misquoteId is not null (i.e., don't delete a misquote that does not exist)
-		if($this->misquoteId === null) {
-			throw(new \PDOException("unable to delete a misquote that does not exist"));
-		}
-
 		// create query template
 		$query = "DELETE FROM misquote WHERE misquoteId = :misquoteId";
 		$statement = $pdo->prepare($query);
@@ -242,11 +232,6 @@ class Misquote implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 **/
 	public function update(\PDO $pdo): void {
-		// enforce the misquoteId is not null (i.e., don't update a misquote that does not exist)
-		if($this->misquoteId === null) {
-			throw(new \PDOException("unable to update a misquote that does not exist"));
-		}
-
 		// create query template
 		$query = "UPDATE misquote SET attribution = :attribution, misquote = :misquote, submitter = :submitter WHERE misquoteId = :misquoteId";
 		$statement = $pdo->prepare($query);
