@@ -203,9 +203,6 @@ class Misquote implements \JsonSerializable {
 		$misquoteId = $this->misquoteId->getBytes();
 		$parameters = ["misquoteId" => $misquoteId, "attribution" => $this->attribution, "misquote" => $this->misquote, "submitter" => $this->submitter];
 		$statement->execute($parameters);
-
-		// update the null misquoteId with what mySQL just gave us
-		$this->misquoteId = intval($pdo->lastInsertId());
 	}
 
 	/**
