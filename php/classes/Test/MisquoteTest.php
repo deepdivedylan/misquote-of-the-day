@@ -135,4 +135,13 @@ class MisquoteTest extends MisquoteOfTheDayTest {
 		$this->assertEquals($pdoMisquote->getMisquote(), $this->VALID_MISQUOTE);
 		$this->assertEquals($pdoMisquote->getSubmitter(), $this->VALID_SUBMITTER);
 	}
+
+	/**
+	 * test grabbing a Misquote by submitter that does not exist
+	 **/
+	public function testGetInvalidMisquoteBySubmitter() : void {
+		// grab a Misquote by submitter that does not exist
+		$misquote = Misquote::getMisquoteBySubmitter($this->getPDO(), "nobody every said this quote - ever");
+		$this->assertCount(0, $misquote);
+	}
 }
