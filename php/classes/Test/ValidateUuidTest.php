@@ -10,7 +10,7 @@ use Ramsey\Uuid\UuidInterface;
 require_once(dirname(__DIR__) . "/autoload.php");
 
 // grab the uuid generator
-require_once(dirname(__DIR__) . "/lib/uuid.php");
+require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 
 
 class UuidTestObject {
@@ -48,6 +48,12 @@ class ValidateUuidTest extends TestCase {
 	 **/
 	protected $VALID_BYTES = null;
 
+
+	/**
+	 * @var UuidTestObject
+	 **/
+	protected $VALID_OBJECT = null;
+
 	/**
 	 * @var string $VALID_STRING
 	 **/
@@ -61,6 +67,7 @@ class ValidateUuidTest extends TestCase {
 	public function setUp() {
 		// seed bytes with an actual uuid
 		$this->VALID_BYTES = chr(118) . chr(9) . chr(185) . chr(49) . chr(221) . chr(132) . chr(79) . chr(33) . chr(165) . chr(15) . chr(133) . chr(169) . chr(172) . chr(81) . chr(251) . chr(146);
+		$this->VALID_OBJECT = new UuidTestObject();
 		$this->VALID_UUID = generateUuidV4();
 	}
 
