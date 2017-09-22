@@ -1,6 +1,7 @@
 <phpunit>
 	<testsuites>
 		<testsuite name="Misquote of the Day">
+			<file>MisquoteTest.php</file>
 			<file>ValidateUuidTest.php</file>
 		</testsuite>
 	</testsuites>
