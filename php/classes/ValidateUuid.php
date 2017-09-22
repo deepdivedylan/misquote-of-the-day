@@ -10,7 +10,7 @@ use Ramsey\Uuid\Uuid;
  *
  * This trait will validate a uuid in any of the following three formats:
  *
- * 1. human readable string (32 bytes)
+ * 1. human readable string (36 bytes)
  * 2. binary string (16 bytes)
  * 3. Ramsey\Uuid\Uuid object
  *
