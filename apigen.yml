@@ -1,0 +1,6 @@
+parameters:
+   visibilityLevels: [public, protected, private]
+   annotationGroups: [todo, deprecated]
+   title: "Misquote of the Day Documentation"
+   baseUrl: "https://bootcamp-coders.cnm.edu/~dmcdonald21/misquote-of-the-day/doc"
+   overwrite: true

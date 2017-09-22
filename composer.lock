@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "29d1068aae4662ba1c7fff391b83adcf",
+    "content-hash": "b3a6880979ae0bbdb3ae85aa57ffc874",
     "packages": [
         {
             "name": "apigen/apigen",
@@ -1781,12 +1781,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "d32bda49401cc3ba426a48f40952335aa6797da1"
+                "reference": "a402048"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/d32bda49401cc3ba426a48f40952335aa6797da1",
-                "reference": "d32bda49401cc3ba426a48f40952335aa6797da1",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/a402048",
+                "reference": "a402048",
                 "shasum": ""
             },
             "require": {
@@ -1835,7 +1835,7 @@
                 }
             ],
             "description": "Better Reflection - an improved code reflection API",
-            "time": "2017-09-21 17:31:09"
+            "time": "2017-09-21T17:31:09+00:00"
         },
         {
             "name": "roave/signature",

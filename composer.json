@@ -6,11 +6,11 @@
 		"phpunit/phpunit": "@stable",
 		"pusher/pusher-php-server": "@stable",
 		"ramsey/uuid": "@stable",
-		"roave/better-reflection": "dev-master"
+		"roave/better-reflection": "dev-master#a402048"
 	},
 
 	"scripts": {
-		"apigen": "./vendor/bin/apigen generate ./php/classes --destination doc",
+		"apigen": "./vendor/bin/apigen generate ./php/classes/*.php --destination doc",
 		"phpunit" : "./vendor/bin/phpunit -c ./php/classes/Test --coverage-html coverage"
 	}
 }
