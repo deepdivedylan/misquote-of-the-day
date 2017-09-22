@@ -144,4 +144,32 @@ class MisquoteTest extends MisquoteOfTheDayTest {
 		$misquote = Misquote::getMisquoteBySubmitter($this->getPDO(), "nobody every said this quote - ever");
 		$this->assertCount(0, $misquote);
 	}
+
+	/**
+	 * test grabbing all Misquotes
+	 **/
+	public function testGetAllValidMisquotes() : void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("misquote");
+
+		// create a Misquote and insert it into mySQL
+		$misquoteId = generateUuidV4();
+		$misquote = new Misquote($misquoteId, $this->VALID_ATTRIBUTION, $this->VALID_MISQUOTE, $this->VALID_SUBMITTER);
+		$misquote->insert($this->getPDO());
+
+		// grab the data from mySQL and enforce the fields match expectations
+		$results = Misquote::getAllMisquotes($this->getPDO());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("misquote"));
+		$this->assertCount(1, $results);
+
+		// enforce no other objects are bleeding into the test
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\MisquoteOfTheDay\\Misquote", $results);
+
+		// grab the results from the array and validate it
+		$pdoMisquote = $results[0];
+		$this->assertEquals($pdoMisquote->getMisquoteId(), $misquoteId);
+		$this->assertEquals($pdoMisquote->getAttribution(), $this->VALID_ATTRIBUTION);
+		$this->assertEquals($pdoMisquote->getMisquote(), $this->VALID_MISQUOTE);
+		$this->assertEquals($pdoMisquote->getSubmitter(), $this->VALID_SUBMITTER);
+	}
 }
