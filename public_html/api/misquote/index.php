@@ -1,8 +1,12 @@
 <?php
 require_once(dirname(__DIR__, 3) . "/vendor/autoload.php");
-require_once(dirname(__DIR__, 3) . "/php/classes/misquote.php");
+require_once(dirname(__DIR__, 3) . "/php/classes/autoload.php");
+require_once(dirname(__DIR__, 3) . "/php/lib/uuid.php");
 require_once(dirname(__DIR__, 3) . "/php/lib/xsrf.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
+use Edu\Cnm\MisquoteOfTheDay\Misquote;
+use Pusher\Pusher;
 
 // start the session and create a XSRF token
 if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -59,7 +63,7 @@ try {
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
 
-		$misquote = new Misquote(null, $requestObject->attribution, $requestObject->misquote, $requestObject->submitter);
+		$misquote = new Misquote(generateUuidV4(), $requestObject->attribution, $requestObject->misquote, $requestObject->submitter);
 		$misquote->insert($pdo);
 		$pusher->trigger("misquote", "new", $misquote);
 		$reply->message = "Misquote created OK";
