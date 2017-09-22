@@ -98,4 +98,13 @@ class MisquoteTest extends MisquoteOfTheDayTest {
 		$this->assertNull($pdoMisquote);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("misquote"));
 	}
+
+	/**
+	 * test grabbing a Misquote that does not exist
+	 **/
+	public function testGetInvalidMisquoteByMisquoteId() : void {
+		$fakeMisquoteId = generateUuidV4();
+		$misquote = Misquote::getMisquoteByMisquoteId($this->getPDO(), $fakeMisquoteId);
+		$this->assertNull($misquote);
+	}
 }
