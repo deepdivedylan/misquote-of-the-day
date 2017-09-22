@@ -4,7 +4,6 @@ namespace Edu\Cnm\MisquoteOfTheDay\Test;
 use Edu\Cnm\MisquoteOfTheDay\ValidateUuid;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/autoload.php");
@@ -19,9 +18,9 @@ class UuidTestObject {
 	private $uuid;
 
 	/**
-	 * @return UuidInterface
+	 * @return Uuid
 	 */
-	public function getUuid() : UuidInterface {
+	public function getUuid() : Uuid {
 		return($this->uuid);
 	}
 
@@ -60,7 +59,7 @@ class ValidateUuidTest extends TestCase {
 	protected $VALID_STRING = "a300f5c8-ac56-430d-a683-343298ea88d2";
 
 	/**
-	 * @var UuidInterface $VALID_UUID
+	 * @var Uuid $VALID_UUID
 	 **/
 	protected $VALID_UUID = null;
 
@@ -74,15 +73,21 @@ class ValidateUuidTest extends TestCase {
 	public function testInsertValidBytes() {
 		$uuid = Uuid::fromBytes($this->VALID_BYTES);
 		$this->assertInstanceOf("Ramsey\\Uuid\\Uuid", $uuid);
+		$this->VALID_OBJECT->setUuid($this->VALID_BYTES);
+		$this->assertInstanceOf("Ramsey\\Uuid\\Uuid", $this->VALID_OBJECT->getUuid());
 	}
 
 	public function testInsertValidObject() {
 		$this->assertInstanceOf("Ramsey\\Uuid\\Uuid", $this->VALID_UUID);
+		$this->VALID_OBJECT->setUuid($this->VALID_UUID);
+		$this->assertInstanceOf("Ramsey\\Uuid\\Uuid", $this->VALID_OBJECT->getUuid());
 	}
 
 	public function testInsertValidString() {
 		$uuid = Uuid::fromString($this->VALID_STRING);
 		$this->assertTrue(Uuid::isValid($this->VALID_STRING));
 		$this->assertInstanceOf("Ramsey\\Uuid\\Uuid", $uuid);
+		$this->VALID_OBJECT->setUuid($this->VALID_STRING);
+		$this->assertInstanceOf("Ramsey\\Uuid\\Uuid", $this->VALID_OBJECT->getUuid());
 	}
 }
