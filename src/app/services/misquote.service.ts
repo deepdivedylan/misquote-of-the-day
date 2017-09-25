@@ -11,7 +11,7 @@ export class MisquoteService {
 
 	private misquoteUrl = "api/misquote/";
 
-	deleteMisquote(misquoteId: number) : Observable<Status> {
+	deleteMisquote(misquoteId: string) : Observable<Status> {
 		return(this.http.delete<Status>(this.misquoteUrl + misquoteId));
 	}
 
@@ -19,7 +19,7 @@ export class MisquoteService {
 		return(this.http.get<Misquote[]>(this.misquoteUrl));
 	}
 
-	getMisquote(misquoteId: number) : Observable<Misquote> {
+	getMisquote(misquoteId: string) : Observable<Misquote> {
 		return(this.http.get<Misquote>(this.misquoteUrl + misquoteId));
 	}
 

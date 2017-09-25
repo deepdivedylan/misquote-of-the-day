@@ -11,7 +11,7 @@ import {Status} from "../classes/status";
 export class MisquoteListComponent implements OnInit {
 	@ViewChild("misquoteForm") misquoteForm : any;
 	misquotes: Misquote[] = [];
-	misquote: Misquote = new Misquote(0, "", "", "");
+	misquote: Misquote = new Misquote(null, null, null, null);
 	status: Status = null;
 
 	constructor(private misquoteService: MisquoteService, private router: Router) {}

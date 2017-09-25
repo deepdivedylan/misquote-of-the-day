@@ -10,14 +10,14 @@ import {Status} from "../classes/status";
 
 export class MisquoteComponent implements OnInit {
 	deleted: boolean = false;
-	misquote: Misquote = new Misquote(0, "", "", "");
+	misquote: Misquote = new Misquote(null, null, null, null);
 	status: Status = null;
 
 	constructor(private misquoteService: MisquoteService, private route: ActivatedRoute) {}
 
 	ngOnInit() : void {
 		this.route.params.forEach((params : Params) => {
-			let misquoteId = +params["misquoteId"];
+			let misquoteId = params["misquoteId"];
 			this.misquoteService.getMisquote(misquoteId)
 				.subscribe(misquote => this.misquote = misquote);
 		});
@@ -28,7 +28,7 @@ export class MisquoteComponent implements OnInit {
 			.subscribe(status => {
 				this.deleted = true;
 				this.status = status;
-				this.misquote = new Misquote(0, "", "", "");
+				this.misquote = new Misquote(null, null, null, null);
 			});
 	}
 
