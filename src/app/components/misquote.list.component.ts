@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms"
 import {Router} from "@angular/router";
 import {MisquoteService} from "../services/misquote.service";
 import {Misquote} from "../classes/misquote";
@@ -9,15 +10,21 @@ import {Status} from "../classes/status";
 })
 
 export class MisquoteListComponent implements OnInit {
-	@ViewChild("misquoteForm") misquoteForm : any;
+	misquoteForm: FormGroup;
 	misquotes: Misquote[] = [];
 	misquote: Misquote = new Misquote(null, null, null, null);
 	status: Status = null;
 
-	constructor(private misquoteService: MisquoteService, private router: Router) {}
+	constructor(private formBuilder: FormBuilder, private misquoteService: MisquoteService, private router: Router) {}
+
 
 	ngOnInit() : void {
 		this.reloadMisquotes();
+		this.misquoteForm = this.formBuilder.group({
+			attribution: ["", Validators.required],
+			misquote: ["", Validators.required],
+			submitter: ["", Validators.required]
+		});
 	}
 
 	reloadMisquotes() : void {
