@@ -20,9 +20,9 @@ export class MisquoteListComponent implements OnInit {
 	ngOnInit() : void {
 		this.reloadMisquotes();
 		this.misquoteForm = this.formBuilder.group({
-			attribution: ["", Validators.required],
-			misquote: ["", Validators.required],
-			submitter: ["", Validators.required]
+			attribution: ["", [Validators.maxLength(64), Validators.required]],
+			misquote: ["", [Validators.maxLength(255), Validators.required]],
+			submitter: ["", [Validators.maxLength(64), Validators.required]]
 		});
 	}
 
