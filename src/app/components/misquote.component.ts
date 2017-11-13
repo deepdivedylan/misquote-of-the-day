@@ -21,21 +21,35 @@ export class MisquoteComponent implements OnInit {
 		this.route.params.forEach((params : Params) => {
 			let misquoteId = params["misquoteId"];
 			this.misquoteService.getMisquote(misquoteId)
-				.subscribe(misquote => this.misquote = misquote);
+				.subscribe(misquote => {
+					this.misquote = misquote;
+					this.misquoteForm.patchValue(misquote);
+				});
 		});
 		this.misquoteForm = this.formBuilder.group({
-			attribution: ["", Validators.required],
-			misquote: ["", Validators.required],
-			submitter: ["", Validators.required]
+			attribution: ["", [Validators.maxLength(64), Validators.required]],
+			misquote: ["", [Validators.maxLength(255), Validators.required]],
+			submitter: ["", [Validators.maxLength(64), Validators.required]]
+		});
+		this.applyFormChanges();
+	}
+
+	applyFormChanges() : void {
+		this.misquoteForm.valueChanges.subscribe(values => {
+			for(let field in values) {
+				this.misquote[field] = values[field];
+			}
 		});
 	}
 
 	deleteMisquote() : void {
 		this.misquoteService.deleteMisquote(this.misquote.misquoteId)
 			.subscribe(status => {
-				this.deleted = true;
 				this.status = status;
-				this.misquote = new Misquote(null, null, null, null);
+				if(this.status.status === 200) {
+					this.deleted = true;
+					this.misquote = new Misquote(null, null, null, null);
+				}
 			});
 	}
 

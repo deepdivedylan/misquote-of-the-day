@@ -9,6 +9,10 @@
 			</div>
 			<input type="text" name="misquote" id="misquote" formControlName="misquote" class="form-control"/>
 		</div>
+		<div *ngIf="misquoteForm.controls.misquote?.invalid && misquoteForm.controls.misquote?.touched" class="alert alert-danger" role="alert">
+			<p *ngIf="misquoteForm.controls.misquote?.errors.required">Misquote is required.</p>
+			<p *ngIf="misquoteForm.controls.misquote?.errors.maxlength">Misquote is too long. You typed {{ misquoteForm.controls.misquote?.errors.maxlength.actualLength - misquoteForm.controls.misquote?.errors.maxlength.requiredLength }} too many characters.</p>
+		</div>
 	</div>
 	<div class="form-group">
 		<label for="attribution">Attribution</label>
@@ -17,6 +21,10 @@
 				<i class="fa fa-quote-left" aria-hidden="true"></i>
 			</div>
 			<input type="text" name="attribution" id="attribution" formControlName="attribution" class="form-control">
+		</div>
+		<div *ngIf="misquoteForm.controls.attribution?.invalid && misquoteForm.controls.attribution?.touched" class="alert alert-danger" role="alert">
+			<p *ngIf="misquoteForm.controls.attribution?.errors.required">Attribution is required.</p>
+			<p *ngIf="misquoteForm.controls.attribution?.errors.maxlength">Attribution is too long. You typed {{ misquoteForm.controls.attribution?.errors.maxlength.actualLength - misquoteForm.controls.attribution?.errors.maxlength.requiredLength }} too many characters.</p>
 		</div>
 	</div>
 	<div class="form-group">
@@ -27,13 +35,14 @@
 			</div>
 			<input type="text" name="submitter" id="submitter" formControlName="submitter" class="form-control">
 		</div>
+		<div *ngIf="misquoteForm.controls.submitter?.invalid && misquoteForm.controls.submitter?.touched" class="alert alert-danger" role="alert">
+			<p *ngIf="misquoteForm.controls.submitter?.errors.required">Submitter is required.</p>
+			<p *ngIf="misquoteForm.controls.submitter?.errors.maxlength">Submitter is too long. You typed {{ misquoteForm.controls.submitter?.errors.maxlength.actualLength - misquoteForm.controls.submitter?.errors.maxlength.requiredLength }} too many characters.</p>
+		</div>
 	</div>
-	<button type="submit" class="btn btn-info btn-lg"><i class="fa fa-share"></i> Misquote</button>
+	<button [disabled]="misquoteForm.invalid" type="submit" class="btn btn-info btn-lg"><i class="fa fa-share"></i> Misquote</button>
 	<button type="reset" class="btn btn-warning btn-lg"><i class="fa fa-ban"></i> Cancel</button>
 </form>
-
-<p>Form value: {{ misquoteForm.value | json }}</p>
-<p>Form status: {{ misquoteForm.status | json }}</p>
 
 <div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">
 	<button type="button" class="close" aria-label="Close" (click)="status = null;"><span
