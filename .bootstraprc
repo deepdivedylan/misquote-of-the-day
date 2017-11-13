@@ -1,7 +1,7 @@
 {
 	"bootstrapVersion": 4,
 	"extractStyles": true,
-	"scripts": false,
+	"scripts": true,
 	"styleLoaders": ["style-loader", "css-loader", "sass-loader"],
 	"styles": true
 }
