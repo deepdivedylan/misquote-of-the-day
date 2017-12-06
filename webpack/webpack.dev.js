@@ -21,6 +21,7 @@ module.exports = webpackMerge(commonConfig, {
 		new ExtractTextPlugin("[name].css"),
 		new webpack.DefinePlugin({
 			"process.env": {
+				"BASE_HREF": JSON.stringify("/"),
 				"ENV": JSON.stringify(ENV)
 			}
 		})
