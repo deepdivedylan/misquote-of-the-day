@@ -5,7 +5,7 @@
 		<label for="misquote">Misquote</label>
 		<div class="input-group">
 			<div class="input-group-addon">
-				<i class="fa fa-comment" aria-hidden="true"></i>
+				<fa-icon [icon]="faComment" aria-hidden="true"></fa-icon>
 			</div>
 			<input type="text" name="misquote" id="misquote" formControlName="misquote" class="form-control"/>
 		</div>
@@ -18,7 +18,7 @@
 		<label for="attribution">Attribution</label>
 		<div class="input-group">
 			<div class="input-group-addon">
-				<i class="fa fa-quote-left" aria-hidden="true"></i>
+				<fa-icon [icon]="faQuoteLeft" aria-hidden="true"></fa-icon>
 			</div>
 			<input type="text" name="attribution" id="attribution" formControlName="attribution" class="form-control">
 		</div>
@@ -31,7 +31,7 @@
 		<label for="submitter">Submitter</label>
 		<div class="input-group">
 			<div class="input-group-addon">
-				<i class="fa fa-user" aria-hidden="true"></i>
+				<fa-icon [icon]="faUser" aria-hidden="true"></fa-icon>
 			</div>
 			<input type="text" name="submitter" id="submitter" formControlName="submitter" class="form-control">
 		</div>
@@ -40,8 +40,8 @@
 			<p *ngIf="misquoteForm.controls.submitter?.errors.maxlength">Submitter is too long. You typed {{ misquoteForm.controls.submitter?.errors.maxlength.actualLength - misquoteForm.controls.submitter?.errors.maxlength.requiredLength }} too many characters.</p>
 		</div>
 	</div>
-	<button [disabled]="misquoteForm.invalid" type="submit" class="btn btn-info btn-lg"><i class="fa fa-share"></i> Misquote</button>
-	<button type="reset" class="btn btn-warning btn-lg"><i class="fa fa-ban"></i> Cancel</button>
+	<button [disabled]="misquoteForm.invalid" type="submit" class="btn btn-info btn-lg"><fa-icon [icon]="faShare"></fa-icon> Misquote</button>
+	<button type="reset" class="btn btn-warning btn-lg"><fa-icon [icon]="faBan"></fa-icon> Cancel</button>
 </form>
 
 <div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">
@@ -64,7 +64,7 @@
 		<td>{{ misquote.misquote }}</td>
 		<td>{{ misquote.attribution }}</td>
 		<td>{{ misquote.submitter }}</td>
-		<td><a class="btn btn-warning" (click)="switchMisquote(misquote);"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+		<td><a class="btn btn-warning" (click)="switchMisquote(misquote);"><fa-icon [icon]="faPencilAlt" aria-hidden="true"></fa-icon></a>
 		</td>
 	</tr>
 </table>

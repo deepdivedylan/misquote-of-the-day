@@ -4,6 +4,7 @@ import {MisquoteService} from "../services/misquote.service";
 import {Misquote} from "../classes/misquote";
 import {Status} from "../classes/status";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {faBan, faComment, faQuoteLeft, faShare, faTrash, faUser} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
 	templateUrl: "./templates/misquote.html"
@@ -14,6 +15,14 @@ export class MisquoteComponent implements OnInit {
 	deleted: boolean = false;
 	misquote: Misquote = new Misquote(null, null, null, null);
 	status: Status = null;
+
+	// fontawesome icons
+	faBan = faBan;
+	faComment = faComment;
+	faQuoteLeft = faQuoteLeft;
+	faShare = faShare;
+	faTrash = faTrash;
+	faUser = faUser;
 
 	constructor(private formBuilder: FormBuilder, private misquoteService: MisquoteService, private route: ActivatedRoute) {}
 
