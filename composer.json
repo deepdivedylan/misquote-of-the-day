@@ -1,16 +1,14 @@
 {
 	"require": {
-		"apigen/apigen": "dev-master",
-		"phpdocumentor/reflection-docblock": "@stable",
+		"phpdocumentor/phpdocumentor": "dev-master",
 		"phpunit/dbunit": "@stable",
 		"phpunit/phpunit": "@stable",
 		"pusher/pusher-php-server": "@stable",
-		"ramsey/uuid": "@stable",
-		"roave/better-reflection": "dev-master#a402048"
+		"ramsey/uuid": "@stable"
 	},
 
 	"scripts": {
-		"apigen": "./vendor/bin/apigen generate ./php/classes/*.php --destination doc",
+		"phpdoc": "./vendor/bin/phpdoc run -d ./php/classes -t doc",
 		"phpunit": "./vendor/bin/phpunit -c ./php/classes/Test --coverage-html coverage"
 	}
 }
