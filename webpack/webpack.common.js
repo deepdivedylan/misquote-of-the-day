@@ -1,7 +1,7 @@
-var webpack = require("webpack");
-var HtmlWebpackPlugin = require("html-webpack-plugin");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var helpers = require("./helpers");
+const  webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const helpers = require("./helpers");
 
 module.exports = {
 	entry: {
@@ -23,11 +23,11 @@ module.exports = {
 			},
 			{
 				test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-				loader: "url-loader?limit=100000"
+				loader: "url-loader?name=/assets/[name].[hash].[ext]"
 			},
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract({ fallbackLoader: "style-loader", loader: "css-loader?minimize=true" })
+				loader: [MiniCssExtractPlugin.loader, "css-loader"]
 			},
 			{
 				test: /\.ts$/,
@@ -37,15 +37,22 @@ module.exports = {
 	},
 
 	plugins: [
-		new webpack.optimize.CommonsChunkPlugin({
-			name: ["app", "vendor", "polyfills"]
-		}),
+
+		new webpack.ContextReplacementPlugin(
+			// The (\\|\/) piece accounts for path separators in *nix and Windows
+			// For Angular 5, see also https://github.com/angular/angular/issues/20357#issuecomment-343683491
+			/\@angular(\\|\/)core(\\|\/)esm5/,
+			helpers.root("src"), // location of your src
+			{
+				// your Angular Async Route paths relative to this root directory
+			}
+		),
 
 		new webpack.ProvidePlugin({
 			$: "jquery",
 			jQuery: "jquery",
-			Popper: "popper.js",
-			"window.jQuery": "jquery"
+			"window.jQuery": "jquery",
+			Popper: ['popper.js', 'default']
 		}),
 
 		new webpack.ContextReplacementPlugin(/@angular(\\|\/)core(\\|\/)/, helpers.root("src")),
