@@ -12,8 +12,8 @@
 		<div class="form-group">
 			<label for="misquote">Misquote</label>
 			<div class="input-group">
-				<div class="input-group-addon">
-					<fa-icon [icon]="faComment"></fa-icon>
+				<div class="input-group-prepend">
+					<span class="input-group-text"><fa-icon [icon]="faComment"></fa-icon></span>
 				</div>
 				<input type="text" name="misquote" id="misquote" class="form-control" formControlName="misquote" />
 			</div>
@@ -25,8 +25,8 @@
 		<div class="form-group">
 			<label for="attribution">Attribution</label>
 			<div class="input-group">
-				<div class="input-group-addon">
-					<fa-icon [icon]="faQuoteLeft"></fa-icon>
+				<div class="input-group-prepend">
+					<span class="input-group-text"><fa-icon [icon]="faQuoteLeft"></fa-icon></span>
 				</div>
 				<input type="text" name="attribution" id="attribution" class="form-control" maxlength="64" formControlName="attribution" />
 			</div>
@@ -38,8 +38,8 @@
 		<div class="form-group">
 			<label for="submitter">Submitter</label>
 			<div class="input-group">
-				<div class="input-group-addon">
-					<fa-icon [icon]="faUser"></fa-icon>
+				<div class="input-group-prepend">
+					<span class="input-group-text"><fa-icon [icon]="faUser"></fa-icon></span>
 				</div>
 				<input type="text" name="submitter" id="submitter" class="form-control" maxlength="64" formControlName="submitter" />
 			</div>
