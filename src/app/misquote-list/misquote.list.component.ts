@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms"
 import {Router} from "@angular/router";
-import {MisquoteService} from "../services/misquote.service";
-import {Misquote} from "../classes/misquote";
-import {Status} from "../classes/status";
+import {MisquoteService} from "../shared/services/misquote.service";
+import {Misquote} from "../shared/interfaces/misquote";
+import {Status} from "../shared/interfaces/status";
 import {faBan, faComment, faPencilAlt, faQuoteLeft, faShare, faUser} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
@@ -45,7 +45,7 @@ export class MisquoteListComponent implements OnInit {
 	}
 
 	createMisquote() : void {
-		let misquote = new Misquote(null, this.misquoteForm.value.attribution, this.misquoteForm.value.misquote, this.misquoteForm.value.submitter);
+		let misquote = {misquoteId: null, attribution: this.misquoteForm.value.attribution, misquote: this.misquoteForm.value.misquote, submitter: this.misquoteForm.value.submitter};
 		this.misquoteService.createMisquote(misquote)
 			.subscribe(status => {
 				this.status = status;
