@@ -1,7 +1,7 @@
 import {RouterModule, Routes} from "@angular/router";
-import {MisquoteComponent} from "./components/misquote.component";
-import {MisquoteListComponent} from "./components/misquote.list.component";
-import {SplashComponent} from "./components/splash.component";
+import {MisquoteComponent} from "./misquote/misquote.component";
+import {MisquoteListComponent} from "./misquote-list/misquote.list.component";
+import {SplashComponent} from "./splash/splash.component";
 import {MisquoteService} from "./shared/services/misquote.service";
 import {APP_BASE_HREF} from "@angular/common";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
