@@ -2,11 +2,10 @@ import {RouterModule, Routes} from "@angular/router";
 import {MisquoteComponent} from "./components/misquote.component";
 import {MisquoteListComponent} from "./components/misquote.list.component";
 import {SplashComponent} from "./components/splash.component";
-import {MisquoteService} from "./services/misquote.service";
+import {MisquoteService} from "./shared/services/misquote.service";
 import {APP_BASE_HREF} from "@angular/common";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
-import {DeepDiveInterceptor} from "./services/deep.dive.interceptor";
-
+import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
 
 export const allAppComponents = [MisquoteComponent, MisquoteListComponent, SplashComponent];
 
