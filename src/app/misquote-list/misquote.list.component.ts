@@ -7,7 +7,7 @@ import {Status} from "../shared/interfaces/status";
 import {faBan, faComment, faPencilAlt, faQuoteLeft, faShare, faUser} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-	templateUrl: "templates/misquote-list.html"
+	template: require("./misquote-list.html")
 })
 
 export class MisquoteListComponent implements OnInit {

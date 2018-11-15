@@ -7,7 +7,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {faBan, faComment, faQuoteLeft, faShare, faTrash, faUser} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-	templateUrl: "./templates/misquote.html"
+	template: require("./misquote.html")
 })
 
 export class MisquoteComponent implements OnInit {
