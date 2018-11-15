@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
-import {MisquoteService} from "../services/misquote.service";
-import {Misquote} from "../classes/misquote";
-import {Status} from "../classes/status";
+import {MisquoteService} from "../shared/services/misquote.service";
+import {Misquote} from "../shared/interfaces/misquote";
+import {Status} from "../shared/interfaces/status";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {faBan, faComment, faQuoteLeft, faShare, faTrash, faUser} from "@fortawesome/free-solid-svg-icons";
 
@@ -13,7 +13,7 @@ import {faBan, faComment, faQuoteLeft, faShare, faTrash, faUser} from "@fortawes
 export class MisquoteComponent implements OnInit {
 	misquoteForm: FormGroup;
 	deleted: boolean = false;
-	misquote: Misquote = new Misquote(null, null, null, null);
+	misquote: Misquote;
 	status: Status = null;
 
 	// fontawesome icons
@@ -57,7 +57,7 @@ export class MisquoteComponent implements OnInit {
 				this.status = status;
 				if(this.status.status === 200) {
 					this.deleted = true;
-					this.misquote = new Misquote(null, null, null, null);
+					this.misquote = {misquoteId: null, attribution: null, misquote: null, submitter: null};
 				}
 			});
 	}
