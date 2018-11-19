@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+   misquote-of-the-day:
+      build: ./misquote-of-the-day
+      ports:
+         - 8888:80
+   mysql:
+      image: mysql:latest
+      depends_on:
+        - misquote-of-the-day
+      ports:
+         - 33006:3306
