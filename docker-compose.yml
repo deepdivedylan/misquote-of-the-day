@@ -5,6 +5,8 @@ services:
       build: ./misquote-of-the-day
       env_file:
         - ./.gitsecret/secrets/misquote-of-the-day.env
+      environment:
+        - MYSQL_HOST: "mysql"
       ports:
          - 8888:80
    mysql:
