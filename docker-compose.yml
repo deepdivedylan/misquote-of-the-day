@@ -3,10 +3,14 @@ version: "3"
 services:
    misquote-of-the-day:
       build: ./misquote-of-the-day
+      env_file:
+        - ./.gitsecret/secrets/misquote-of-the-day.env
       ports:
          - 8888:80
    mysql:
-      image: mysql:latest
+      build: ./mysql
+      env_file:
+        - ./.gitsecret/secrets/misquote-of-the-day.env
       depends_on:
         - misquote-of-the-day
       ports:
