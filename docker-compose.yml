@@ -11,7 +11,5 @@ services:
       build: ./mysql
       env_file:
         - ./.gitsecret/secrets/misquote-of-the-day.env
-      depends_on:
-        - misquote-of-the-day
       ports:
          - 33006:3306
